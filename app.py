@@ -1,4 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
+print "Текстовая строка".decode('UTF-8')
 import os
 import sys
 import json
@@ -41,7 +42,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, "Битва!".decode('UTF-8'))
+                    send_message(sender_id, "Shock")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass

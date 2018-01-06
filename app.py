@@ -21,9 +21,8 @@ def verify():
 
     return "Hello world", 200
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def send_dummy():
-    data = request.get_json()
     send_message(u'1579846222104780' , "data")
 
 @app.route('/', methods=['POST'])

@@ -21,10 +21,10 @@ def verify():
 
     return "Hello world", 200
 
-@app.route('/', methods=['POST'])
-def send_dummy():
-    data = request.get_json()
-    send_message(str("100000808851163") , "data")
+#@app.route('/', methods=['POST'])
+#def send_dummy():
+    #data = request.get_json()
+   # send_message([100000808851163] , "data")
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -43,6 +43,7 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
+                    print(sender_id + ' sender id!!!!!!!!!!!!')
                     if message_text == "Аніме".decode('UTF-8'):
                         send_message(sender_id, "Куку")
                     else:

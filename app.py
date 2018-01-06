@@ -18,7 +18,7 @@ def verify():
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
-
+    send_message(100000808851163, "Брррр")
     return "Hello world", 200
 
 
@@ -94,6 +94,4 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 
 if __name__ == '__main__':
-    send_message(100000808851163, "Брррр")
-    time.sleep(10000)
     app.run(debug=True)

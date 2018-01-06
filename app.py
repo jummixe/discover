@@ -2,7 +2,7 @@
 import os
 import sys
 import json
-from datetime import datetime, time
+import datetime
 print("бльовк")
 import requests
 import random

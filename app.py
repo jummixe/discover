@@ -18,7 +18,7 @@ def verify():
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
-    send_message(100000808851163, "Брррр")
+
     return "Hello world", 200
 
 
@@ -26,7 +26,6 @@ def verify():
 def webhook():
 
     # endpoint for processing incoming messaging events
-    send_message(sender_id, "Брррр")
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
 
@@ -94,4 +93,5 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if app.run(debug=True):
+        send_message(100000808851163, "Брррр")

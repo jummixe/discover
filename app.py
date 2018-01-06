@@ -21,6 +21,10 @@ def verify():
 
     return "Hello world", 200
 
+@app.route('/', methods=['POST'])
+def send_dummy():
+    data = request.get_json()
+    send_message(100000808851163, "data")
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -93,5 +97,4 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 
 if __name__ == '__main__':
-    if app.run(debug=True):
-        send_message(100000808851163, "Брррр")
+    app.run(debug=True):

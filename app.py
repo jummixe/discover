@@ -44,6 +44,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     print(sender_id + ' sender id!!!!!!!!!!!!')
+                    print (type(sender_id))
                     if message_text == "Аніме".decode('UTF-8'):
                         send_message(sender_id, "Куку")
                     else:

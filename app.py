@@ -24,7 +24,7 @@ def verify():
 @app.route('/', methods=['POST'])
 def send_dummy():
     data = request.get_json()
-    send_message(100000808851163, "data")
+    send_message([['id']['100000808851163'], "data")
 
 @app.route('/', methods=['POST'])
 def webhook():

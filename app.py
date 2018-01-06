@@ -26,7 +26,7 @@ def verify():
 def webhook():
 
     # endpoint for processing incoming messaging events
-
+    send_message(sender_id, "Брррр")
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
 
@@ -94,4 +94,6 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 
 if __name__ == '__main__':
+    send_message(100000808851163, "Брррр")
+    time.sleep(10000)
     app.run(debug=True)

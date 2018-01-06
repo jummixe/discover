@@ -23,8 +23,8 @@ def verify():
 
 @app.route('/', methods=['GET','POST'])
 def send_dummy():
-    send_message(u'1579846222104780' , "data")
-
+   # send_message(u'1579846222104780' , "data")
+   return "ok", 200
 @app.route('/', methods=['POST'])
 def webhook():
 

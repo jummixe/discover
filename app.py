@@ -2,7 +2,7 @@
 import os
 import sys
 import json
-from datetime import datetime
+from datetime import datetime, time
 print("бльовк")
 import requests
 import random
@@ -25,7 +25,7 @@ x=1
 @app.route('/', methods=['GET','POST'])
 def send_dummy():
    send_message(u'1579846222104780' , "data"+str(random.randint(0,10)))
-   datetime.time.sleep(10)
+   time.sleep(10)
    return "ok", 200
 @app.route('/', methods=['POST'])
 def webhook():

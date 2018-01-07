@@ -6,6 +6,7 @@ from datetime import datetime,  date
 import time
 import requests
 import random
+import threading
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ def verify():
 
     return "Hello world", 200
 x=1
+#Function executed before first request on the server.
 @app.before_first_request
 def send_automatic():
     def run_sender():
@@ -100,8 +102,29 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
 
+#checking out status of the server if it's already online.
+def check_status():
+  def start_loop():
+        not_started = True
+        while not_started:
+            print('In start loop')
+            try:
+                r = requests.get('https://discoverchan.herokuapp.com')
+                if r.status_code == 200:
+                    print('Server started, quiting start_loop')
+                    not_started = False
+                print(r.status_code)
+            except:
+                print('Server not yet started')
+            time.sleep(2)
+  print('Started runner')
+  thread = threading.Thread(target=start_loop)
+  thread.start()
+
+
 global timestart, routine
 routine = []
 if __name__ == '__main__':
+    check_status()
     app.run(debug=True)
     timestart=datetime.now

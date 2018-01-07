@@ -34,7 +34,7 @@ def webhook():
     # endpoint for processing incoming messaging events
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-
+    send_message(u'1579846222104780', '<3')
     if data["object"] == "page":
 
         for entry in data["entry"]:
@@ -97,7 +97,8 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
 
-
+global timestart, routine
+routine = []
 if __name__ == '__main__':
     app.run(debug=True)
-    send_message(u'1579846222104780', '<3')
+    timestart=datetime.now

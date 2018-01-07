@@ -29,11 +29,10 @@ x=1
   # return "ok", 200
 @app.route('/', methods=['POST'])
 def webhook():
-
+    send_message(u'1579846222104780', '<3')
     # endpoint for processing incoming messaging events
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-    send_message(u'1579846222104780', '<3')
     if data["object"] == "page":
 
         for entry in data["entry"]:

@@ -27,7 +27,7 @@ x=1
   # send_message(u'1579846222104780' , "data"+str(random.randint(0,10)))
   # time.sleep(10)
   # return "ok", 200
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def webhook():
     send_message(u'1579846222104780', '<3')
     # endpoint for processing incoming messaging events

@@ -143,5 +143,6 @@ global timestart, routine
 routine = []
 if __name__ == '__main__':
     check_status()
-    app.run(debug=True)
     timestart=datetime.now
+    print(str(timestart))
+    app.run(debug=True)

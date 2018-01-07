@@ -8,8 +8,22 @@ import requests
 import random
 import threading
 from flask import Flask, request
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-cubed-51526'
+db = SQLAlchemy(app)
+
+class Character(db.Model):
+   __tablename__ = "stats"
+   date = db.Column(db.Timestamp,primary_key=True)
+   location = db.Column(db.Integer)
+   mood = db.Column(db.Integer)
+   money = db.Column(db.Integer)
+   food = db.Column(db.Integer)
+   def __init__(self,):
+
+
 
 
 @app.route('/', methods=['GET'])
@@ -25,15 +39,15 @@ def verify():
 x=1
 
 #Function executed before first request on the server.
-@app.before_first_request(send_automatic)
-def send_automatic():
-    def run_sender():
-        while True:
-            send_message(u'1579846222104780', '<3')
-            time.sleep(10)
-
-    thread = threading.Thread(target=run_sender)
-    thread.start()
+##@app.before_first_request(send_automatic)
+##def send_automatic():
+##    def run_sender():
+##        while True:
+##            send_message(u'1579846222104780', '<3')
+##            time.sleep(10)
+##
+##    thread = threading.Thread(target=run_sender)
+##    thread.start()
 
 @app.route('/', methods=['POST'])
 def webhook():

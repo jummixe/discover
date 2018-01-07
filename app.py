@@ -27,7 +27,7 @@ x=1
 @app.before_first_request
 def send_automatic():
     def run_sender():
-        while true:
+        while True:
             print('automatic')
             time.sleep(10)
 

@@ -21,10 +21,11 @@ class Character(db.Model):
    mood = db.Column(db.Integer)
    money = db.Column(db.Integer)
    food = db.Column(db.Integer)
-   def __init__(self,):
-
-
-
+   def __init__(self,date,location,moood,money):
+        date = db.Column(db.Timestamp,primary_key=True)
+        location = db.Column(db.Integer)
+        mood = db.Column(db.Integer)
+        money = db.Column(db.Integer)
 
 @app.route('/', methods=['GET'])
 def verify():

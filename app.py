@@ -22,12 +22,13 @@ def verify():
 
     return "Hello world", 200
 x=1
-#@app.route('/', methods=['POST'])
-#def send_dummy():
-  #send_message(u'1579846222104780' , "data"+str(random.randint(0,10)))
-  #time.sleep(10)
-  #return "ok", 200
-@app.route('/', methods=['GET','POST'])
+@app.before_first_request
+def send_dummy():
+  send_message(u'1579846222104780' , "data"+str(random.randint(0,10)))
+  time.sleep(10)
+  return "ok", 200
+
+@app.route('/', methods=['POST'])
 def webhook():
     send_message(u'1579846222104780', '<3')
     # endpoint for processing incoming messaging events

@@ -25,7 +25,7 @@ def verify():
 x=1
 
 #Function executed before first request on the server.
-@app.before_first_request()
+@app.before_first_request
 def send_automatic():
     def run_sender():
         while True:

@@ -16,17 +16,18 @@ db = SQLAlchemy(app)
 
 class Character(db.Model):
    __tablename__ = "stats"
-   date = db.Column(db.Timestamp,primary_key=True)
+   date = db.Column(db.TIMESTAMP , primary_key=True)
    location = db.Column(db.Integer)
    mood = db.Column(db.Integer)
    money = db.Column(db.Integer)
    food = db.Column(db.Integer)
    def __init__(self,date,location,moood,money):
-        date = db.Column(db.Timestamp,primary_key=True)
-        location = db.Column(db.Integer)
-        mood = db.Column(db.Integer)
-        money = db.Column(db.Integer)
-
+        self.date = date
+        self.location = location
+        self.mood = mood
+        self.money = money
+   def __repr__(self):
+        return '<date>' % self.date
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back

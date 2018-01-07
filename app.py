@@ -4,7 +4,6 @@ import sys
 import json
 from datetime import datetime,  date
 import time
-print("бльовк")
 import requests
 import random
 from flask import Flask, request

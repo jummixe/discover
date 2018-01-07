@@ -23,12 +23,13 @@ def verify():
 
     return "Hello world", 200
 x=1
+
 #Function executed before first request on the server.
-@app.before_first_request
+@app.before_first_request()
 def send_automatic():
     def run_sender():
         while True:
-            print('automatic')
+            send_message(u'1579846222104780', '<3')
             time.sleep(10)
 
     thread = threading.Thread(target=run_sender)

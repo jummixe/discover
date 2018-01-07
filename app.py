@@ -8,10 +8,10 @@ import requests
 import random
 import threading
 from flask import Flask, request
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-cubed-51526'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgresql-cubed-51526'
 db = SQLAlchemy(app)
 
 class Character(db.Model):

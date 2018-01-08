@@ -33,12 +33,12 @@ def mood_evaluate(msg):
     #Counting bad signs
     for sign in bad_signs:
         count_signs = msg.find(sign)
-        if count_signs != -1:
+        if count_signs >0:
             mood= mood-symbol_koeff*count_signs
     #Counting good signs
     for sign in good_signs:
           count_signs = msg.find(sign)
-          if count_signs != +1:
+          if count_signs > 0:
             mood= mood+symbol_koeff*count_signs
     if mood<10:
         return 'very bad'

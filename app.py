@@ -24,6 +24,7 @@ good_signs =[')','))',':)','<3','отлично','супер','хорошо','н
 #Teaching to evaluate emotions
 def mood_evaluate(msg):
     #basic mood value = 50 = content
+    msg = msg.decode('utf-8')
     mood = 50
     lenght = len(msg)
     #How one sign of bad mood affects the whole image

@@ -14,7 +14,40 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgresql-cubed-51526'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+#configurating  Discover
 
+activity_start=['09','10','11','12']
+activity_end = ['00','01','02','03','04','05']
+
+bad_signs = ['( ','((',':(',';(','хуею','блять','сука','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно']
+good_signs =[')','))',':)','<3','отлично','супер','хорошо','неплохо','ок','верю','надеюсь','будет','пройдёт','прокатит','прорвёмся','never give','вуху']
+#Teaching to evaluate emotions
+def mood_evaluate(msg):
+    #basic mood value = 50 = content
+    mood = 50
+    lenght = len(msg)
+    #How one sign of bad mood affects the whole image
+    symbol_koeff = 100/lenght
+    #Counting bad signs
+    for sign in bad_signs():
+        count_signs = msg.find(sign)
+        if count_signs != -1:
+            mood= mood-symbol_koeff*count_signs
+    #Counting good signs
+    for sign in good_signs():
+          count_signs = msg.find(sign)
+          if count_signs != -1:
+            mood= mood+symbol_koeff*count_signs
+    if mood<10:
+        return 'very bad'
+    if mood<25:
+        return 'bad'
+    if mood>=25 and mood<=65:
+        return 'ok'
+    if mood>=85:
+        return 'very good'
+    if mood>65:
+        return 'good'
 class Character(db.Model):
    __tablename__ = "stats"
    date = db.Column(db.TIMESTAMP , primary_key=True)
@@ -29,6 +62,12 @@ class Character(db.Model):
         self.money = money
    def __repr__(self):
         return '<date>' % self.date
+
+class friends(db.Model):
+    __tablename__ = "friends"
+    page_id = db.Column(db.Integer)
+    date = db.Column(db.TIMESTAMP , primary_key=True)
+
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
@@ -70,9 +109,9 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     if message_text == "Аніме".decode('UTF-8'):
-                        send_message(u'1579846222104780', sender_id)
+                        send_message(sender_id, sender_id)
                     else:
-                        send_message(sender_id, "Брррр")
+                        send_message(sender_id, mood_evaluate(message_text))
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 

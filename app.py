@@ -29,12 +29,12 @@ def mood_evaluate(msg):
     #How one sign of bad mood affects the whole image
     symbol_koeff = 100/lenght
     #Counting bad signs
-    for sign in bad_signs():
+    for sign in bad_signs:
         count_signs = msg.find(sign)
         if count_signs != -1:
             mood= mood-symbol_koeff*count_signs
     #Counting good signs
-    for sign in good_signs():
+    for sign in good_signs:
           count_signs = msg.find(sign)
           if count_signs != -1:
             mood= mood+symbol_koeff*count_signs

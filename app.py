@@ -19,12 +19,13 @@ db = SQLAlchemy(app)
 activity_start=['09','10','11','12']
 activity_end = ['00','01','02','03','04','05']
 
-bad_signs = ['( ','((',':(',';(','хуею','блять','сука','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно']
+bad_signs = ['( ','((',':(',';(','хуею','блять','сука','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно','ужас','косячно',' плохо']
 good_signs =[')','))',':)','<3','отлично','супер','хорошо','неплохо','ок','верю','надеюсь','будет','пройдёт','прокатит','прорвёмся','never give','вуху']
 #Teaching to evaluate emotions
 def mood_evaluate(msg):
     #basic mood value = 50 = content
     msg = msg.encode('utf-8')
+    msg = msg.lower()
     mood = 50
     lenght = len(msg)
     #How one sign of bad mood affects the whole image

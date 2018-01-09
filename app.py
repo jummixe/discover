@@ -203,7 +203,7 @@ def check_status():
 
 
 def init():
-    global api
+    global twitter
     consumer_key = os.environ["consumer_key"]
     consumer_secret= os.environ["consumer_secret"]
     access_key=os.environ["access_key"]
@@ -211,12 +211,12 @@ def init():
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
-    api=tweepy.API(auth)
-    Tweet('Успіх')
+    twitter=tweepy.API(auth)
+    tweet('Успіх')
 
-def Tweet(twit):
+def tweet(twit):
     if len(twit)<=140 and len(twit)>0:
-        api.update_status(twit) #обновляем статус (постим твит)
+        twitter.update_status(twit) #обновляем статус (постим твит)
         return True
     else:
         return False
@@ -224,9 +224,9 @@ def Tweet(twit):
 
 if __name__ == '__main__':
     #checking status of server before running first functions
+    init()
     check_status()
     #initiliazing twitter
-    init()
     #remembering the time we started
     timestart=datetime.now()
     print(str(timestart))

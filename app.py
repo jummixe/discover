@@ -11,7 +11,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgresql-cubed-51526'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-cubed-51526'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 #configurating  Discover
@@ -19,7 +19,7 @@ db = SQLAlchemy(app)
 activity_start=['09','10','11','12']
 activity_end = ['00','01','02','03','04','05']
 
-bad_signs = ['( ','((',':(',';(','хуею','блять','сука','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно','ужас','косячно',' плохо']
+bad_signs = ['( ','((',':(',';(','хуй','бля','сук','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно','ужас','косячно',' плохо']
 good_signs =[')','))',':)','<3','отличн','супер','хорош',' удал','неплох','ок','верю','надеюсь','будет','пройдёт','прокатит','прорвё','never give','вуху']
 #Teaching to evaluate emotions
 def mood_evaluate(msg):

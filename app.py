@@ -93,8 +93,9 @@ class Products(db.Model):
         self.type_id=type_id
         self.price = price
 
-
-
+@app.before_first_request()
+def automatic():
+        send_message(u'1579846222104780', mood_evaluate(message_text))
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
@@ -189,6 +190,7 @@ def check_status():
                 if r.status_code == 200:
                     print('Server started, quiting start_loop')
                     not_started = False
+                    automatic()
                 print(r.status_code)
             except:
                 print('Server not yet started')

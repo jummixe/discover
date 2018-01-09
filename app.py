@@ -96,8 +96,7 @@ class Products(db.Model):
 #Function executed before first request on the server.
 @app.before_first_request
 def before_first_request():
-    try:
-        print('sasatb')
+    print('sasatb')
 
 
 

@@ -222,11 +222,11 @@ def tweet(twit):
     else:
         return False
 
-
+init()
 if __name__ == '__main__':
     #checking status of server before running first functions
     check_status()
-    init()
+
     #initiliazing twitter
     #remembering the time we started
     timestart=datetime.now()

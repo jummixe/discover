@@ -204,10 +204,10 @@ def check_status():
 
 def init():
     global twitter
-    consumer_key = os.environ["CONSUMER_KEY"]
-    consumer_secret= os.environ["CONSUMER_SECRET"]
-    access_key=os.environ["ACCESS_KEY"]
-    access_secret=os.environ["ACCESS_SECRET"]
+    consumer_key = os.environ["CONSUMER_KEY_TWITTER"]
+    consumer_secret= os.environ["CONSUMER_SECRET_TWITTER"]
+    access_key=os.environ["ACCESS_KEY_TWITTER"]
+    access_secret=os.environ["ACCESS_SECRET_TWITTER"]
     print(consumer_key)
     print('succes')
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)

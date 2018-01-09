@@ -94,7 +94,7 @@ class Products(db.Model):
         self.price = price
 
 #Function executed before first request on the server.
-@app.before_first_request()
+@app.autosending
 def autosending():
     print('exec')
     def run_sender():

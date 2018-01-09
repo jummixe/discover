@@ -11,7 +11,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-cubed-51526'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://lyjqanviocxiya:2a1f29fc651120d0078c17992cc7a98035896b1e5724b1140ed833564bc2ba1f@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/d9p0k5v9g1f1c3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 #configurating  Discover

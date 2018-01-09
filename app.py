@@ -11,10 +11,12 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://lyjqanviocxiya:2a1f29fc651120d0078c17992cc7a98035896b1e5724b1140ed833564bc2ba1f@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/d9p0k5v9g1f1c3'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["SQLALCHEMY_DATABASE_URI"]
+
 db = SQLAlchemy(app)
 #configurating  Discover
+global timestart, routine
+routine = []
 
 activity_start=['09','10','11','12']
 activity_end = ['00','01','02','03','04','05']
@@ -66,8 +68,10 @@ class Character(db.Model):
         self.money = money
    def __repr__(self):
         return '<date>' % self.date
+
+
 #Database of bot's contacts
-class friends(db.Model):
+class Friends(db.Model):
     __tablename__ = "friends"
     page_id = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP , primary_key=True)
@@ -78,7 +82,7 @@ class friends(db.Model):
 
 
 #Databse of bot's inventory
-class products(db.Model):
+class Products(db.Model):
     __tablename__ = "inventory"
     id = db.Column(db.Integer, primary_key=True)
     type_id = db.Column(db.Integer)
@@ -197,10 +201,34 @@ def check_status():
   thread.start()
 
 
-global timestart, routine
-routine = []
+def init():
+    global api
+    consumer_key = 'X3eqa0CvTBC28VvdMjKq50KmR'
+
+    consumer_secret= 'laSDws5pWXePHAdkd4VtlisqSJBVjRhsEVAbZMHBVguLu2hfbY'
+    access_key='948982381863632897-A0mUTzXc26evxrEItI2DUIlBdlK5YbZ'
+    access_secret='J0HDLFyVhvw0pUQ7hnai7eMdy3h04ke0UbFec2NBdjQij'
+
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_key, access_secret)
+    api=tweepy.API(auth)
+    Tweet('Успіх')
+
+def Tweet(twit):
+    if len(twit)<=140 and len(twit)>0:
+        api.update_status(twit) #обновляем статус (постим твит)
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
+    #checking status of server before running first functions
     check_status()
+    #initiliazing twitter
+    init()
+    #remembering the time we started
     timestart=datetime.now()
     print(str(timestart))
+    #running the server
     app.run(debug=True)

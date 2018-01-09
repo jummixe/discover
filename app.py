@@ -93,11 +93,6 @@ class Products(db.Model):
         self.type_id=type_id
         self.price = price
 
-#Function executed before first request on the server.
-@app.before_first_request
-def before_first_request():
-    print('sasatb')
-
 
 
 @app.route('/', methods=['GET'])
@@ -164,6 +159,11 @@ def send_message(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+#Function executed before first request on the server.
+@app.before_first_request
+def before_first_request():
+    print('sasatb')
 
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku

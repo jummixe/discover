@@ -95,7 +95,7 @@ class Products(db.Model):
 
 
 #Function executed before first request on the server.
-@app.before_first_request(send_automatic)
+@app.before_first_request(send_automatic())
 def send_automatic():
     print('exec')
     def run_sender():

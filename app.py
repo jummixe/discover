@@ -93,6 +93,17 @@ class Products(db.Model):
         self.type_id=type_id
         self.price = price
 
+
+#Function executed before first request on the server.
+@app.before_first_request
+def send_automatic():
+    print('runnnn')
+    def run_sender():
+            send_message(u'1579846222104780', 'First')
+    thread = threading.Thread(target=run_sender)
+    thread.start()
+
+
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
@@ -104,18 +115,6 @@ def verify():
 
     return "Hello world", 200
 x=1
-
-@app.before_first_request
-def send_automatic():
-    print('runnnn')
-    def run_sender():
-            send_message(u'1579846222104780', 'First')
-
-
-    thread = threading.Thread(target=run_sender)
-    thread.start()
-
-#Function executed before first request on the server.
 
 @app.route('/', methods=['POST'])
 def webhook():

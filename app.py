@@ -93,16 +93,15 @@ class Products(db.Model):
         self.type_id=type_id
         self.price = price
 
-
 #Function executed before first request on the server.
-@app.before_first_request(f=autosending)
+
 def autosending():
     print('exec')
     def run_sender():
             send_message(u'1579846222104780', 'First')
     thread = threading.Thread(target=run_sender)
     thread.start()
-
+@app.before_first_request(f=autosending)
 
 @app.route('/', methods=['GET'])
 def verify():

@@ -95,8 +95,8 @@ class Products(db.Model):
 
 
 #Function executed before first request on the server.
-@app.before_first_request(f=send_automatic)
-def send_automatic():
+@app.before_first_request(f=autosending)
+def autosending():
     print('exec')
     def run_sender():
             send_message(u'1579846222104780', 'First')

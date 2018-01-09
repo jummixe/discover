@@ -192,7 +192,6 @@ def check_status():
                 if r.status_code == 200:
                     print('Server started, quiting start_loop')
                     not_started = False
-                    automatic()
                 print(r.status_code)
             except:
                 print('Server not yet started')

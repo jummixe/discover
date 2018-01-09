@@ -98,7 +98,6 @@ class Products(db.Model):
 def before_first_request():
     try:
         print('sasatb')
-    except Exception, e:
 
 
 

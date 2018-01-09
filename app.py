@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 #configurating  Discover
 global timestart, routine
@@ -105,15 +105,14 @@ def verify():
 x=1
 
 #Function executed before first request on the server.
-##@app.before_first_request(send_automatic)
-##def send_automatic():
-##    def run_sender():
-##        while True:
-##            send_message(u'1579846222104780', '<3')
-##            time.sleep(10)
-##
-##    thread = threading.Thread(target=run_sender)
-##    thread.start()
+@app.before_first_request(send_automatic)
+def send_automatic():
+    def run_sender():
+            send_message(u'1579846222104780', '<3')
+            Tweet('Успіх')
+
+    thread = threading.Thread(target=run_sender)
+    thread.start()
 
 @app.route('/', methods=['POST'])
 def webhook():

@@ -20,7 +20,7 @@ activity_start=['09','10','11','12']
 activity_end = ['00','01','02','03','04','05']
 
 bad_signs = ['( ','((',':(',';(','хуею','блять','сука','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно','ужас','косячно',' плохо']
-good_signs =[')','))',':)','<3','отлично','супер','хорошо','неплохо','ок','верю','надеюсь','будет','пройдёт','прокатит','прорвёмся','never give','вуху']
+good_signs =[')','))',':)','<3','отличн','супер','хорош',' удал','неплох','ок','верю','надеюсь','будет','пройдёт','прокатит','прорвё','never give','вуху']
 #Teaching to evaluate emotions
 def mood_evaluate(msg):
     #basic mood value = 50 = content
@@ -33,12 +33,12 @@ def mood_evaluate(msg):
     #Counting bad signs
     for sign in bad_signs:
         count_signs = msg.find(sign)
-        if count_signs >0:
+        if count_signs >-1:
             mood= mood-symbol_koeff*count_signs
     #Counting good signs
     for sign in good_signs:
           count_signs = msg.find(sign)
-          if count_signs > 0:
+          if count_signs >-1:
             mood= mood+symbol_koeff*count_signs
     if mood<10:
         return 'very bad'
@@ -50,6 +50,8 @@ def mood_evaluate(msg):
         return 'very good'
     if mood>65:
         return 'good'
+
+
 class Character(db.Model):
    __tablename__ = "stats"
    date = db.Column(db.TIMESTAMP , primary_key=True)
@@ -64,11 +66,27 @@ class Character(db.Model):
         self.money = money
    def __repr__(self):
         return '<date>' % self.date
-
+#Database of bot's contacts
 class friends(db.Model):
     __tablename__ = "friends"
     page_id = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP , primary_key=True)
+
+    def __init__(self,date, page_id):
+        self.date = date
+        self.page_id=page_id
+
+
+#Databse of bot's inventory
+class products(db.Model):
+    __tablename__ = "inventory"
+    id = db.Column(db.Integer, primary_key=True)
+    type_id = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+
+    def __init__(self,type_id, price):
+        self.type_id=type_id
+        self.price = price
 
 @app.route('/', methods=['GET'])
 def verify():

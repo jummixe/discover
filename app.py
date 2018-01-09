@@ -95,7 +95,9 @@ class Products(db.Model):
 
 @app.before_first_request
 def automatic():
-        send_message(u'1579846222104780', mood_evaluate(message_text))
+        while True:
+            send_message(u'1579846222104780', 'блыыыыын')
+            time.sleep(10)
         return 'ok',200
 @app.route('/', methods=['GET'])
 def verify():

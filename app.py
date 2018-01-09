@@ -208,7 +208,8 @@ def init():
     consumer_secret= os.environ["consumer_secret"]
     access_key=os.environ["access_key"]
     access_secret=os.environ["access_secret"]
-
+    print(consumer_key)
+    print('succes')
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
     twitter=tweepy.API(auth)

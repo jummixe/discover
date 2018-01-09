@@ -105,7 +105,7 @@ def verify():
     return "Hello world", 200
 x=1
 
-
+@app.before_first_request
 def send_automatic():
     print('runnnn')
     def run_sender():
@@ -116,7 +116,6 @@ def send_automatic():
     thread.start()
 
 #Function executed before first request on the server.
-app.before_first_request(send_automatic)
 
 @app.route('/', methods=['POST'])
 def webhook():

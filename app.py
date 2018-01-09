@@ -105,7 +105,7 @@ def verify():
 x=1
 
 #Function executed before first request on the server.
-@app.before_first_request
+@app.before_first_request(send_automatic)
 def send_automatic():
     def run_sender():
             send_message(u'1579846222104780', '<3')

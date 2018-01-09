@@ -93,7 +93,7 @@ class Products(db.Model):
         self.type_id=type_id
         self.price = price
 
-@app.before_first_request()
+@app.before_first_request(automatic)
 def automatic():
         send_message(u'1579846222104780', mood_evaluate(message_text))
 @app.route('/', methods=['GET'])

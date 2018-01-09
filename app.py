@@ -203,11 +203,10 @@ def check_status():
 
 def init():
     global api
-    consumer_key = 'X3eqa0CvTBC28VvdMjKq50KmR'
-
-    consumer_secret= 'laSDws5pWXePHAdkd4VtlisqSJBVjRhsEVAbZMHBVguLu2hfbY'
-    access_key='948982381863632897-A0mUTzXc26evxrEItI2DUIlBdlK5YbZ'
-    access_secret='J0HDLFyVhvw0pUQ7hnai7eMdy3h04ke0UbFec2NBdjQij'
+    consumer_key = os.environ["consumer_key"]
+    consumer_secret= os.environ["consumer_secret"]
+    access_key=os.environ["access_key"]
+    access_secret=os.environ["access_secret"]
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)

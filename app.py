@@ -96,6 +96,7 @@ class Products(db.Model):
 @app.before_first_request
 def automatic():
         send_message(u'1579846222104780', mood_evaluate(message_text))
+        return 'ok',200
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back

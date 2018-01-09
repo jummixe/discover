@@ -92,8 +92,8 @@ class Products(db.Model):
     def __init__(self,type_id, price):
         self.type_id=type_id
         self.price = price
-global automatic
-@app.before_first_request(automatic)
+
+@app.before_first_request
 def automatic():
         send_message(u'1579846222104780', mood_evaluate(message_text))
 @app.route('/', methods=['GET'])

@@ -109,8 +109,8 @@ x=1
 def send_automatic():
     print('runnnn')
     def run_sender():
-            send_message(u'1579846222104780', '<3')
-            tweet('Успіх')
+            send_message(u'1579846222104780', 'First')
+
 
     thread = threading.Thread(target=run_sender)
     thread.start()

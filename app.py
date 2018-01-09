@@ -107,6 +107,7 @@ x=1
 
 
 def send_automatic():
+    print('runnnn')
     def run_sender():
             send_message(u'1579846222104780', '<3')
             tweet('Успіх')
@@ -214,7 +215,6 @@ def init():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
     twitter=tweepy.API(auth)
-    tweet('Успіх')
 
 def tweet(twit):
     if len(twit)<=140 and len(twit)>0:

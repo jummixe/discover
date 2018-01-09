@@ -102,7 +102,7 @@ def send_automatic():
             send_message(u'1579846222104780', 'First')
     thread = threading.Thread(target=run_sender)
     thread.start()
-@app.before_first_request(send_automatic())
+@app.before_first_request(send_automatic)
 
 @app.route('/', methods=['GET'])
 def verify():

@@ -1,7 +1,0 @@
-diff a/app.py b/app.py	(rejected hunks)
-@@ -3,3 +4,5 @@
-+﻿# -*- coding: utf-8 -*-
-+print 'Текстовая строка'.decode('utf-8')
- import os
- import sys
- import json

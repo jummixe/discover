@@ -66,7 +66,7 @@ class Character():
                     self.create_event(action)
         else:
             self.goal = None
-            raw_input('routine completed.')
+            #raw_input('routine completed.')
 
     #create_event in characters memory, to process it  then as a story
     def create_event(self,event_type):
@@ -89,7 +89,7 @@ class Character():
              for comp in moveflag.flag_components:
                     for verb in range(0,len(comp.verbs)):
                         verbs_f.append(verb)
-                        #raw_input(verbs_f)
+                        ##raw_input(verbs_f)
                     for adj in range(0,len(comp.adjectives)):
                         adjectives_f.append(adj)
              event_new = Event(datetime.now(),event_type='moving',flags=[moveflag],verbs=verbs_f,adjectives=adjectives_f,loc=self.location)
@@ -99,14 +99,14 @@ class Character():
             shop = self.location.shop
             print('shop')
             item_flags=[]
-            #raw_input(shop)
+            ##raw_input(shop)
             if shop is not False:
                 for flag in Global_items[self.goal.inventory].flags:
                  item_flagsl=[]
                  for comp in flag.flag_components:
                     for verb in range(0,len(comp.verbs)):
                         verbs_f.append(verb)
-                        ##raw_input(verbs_f)
+                        ####raw_input(verbs_f)
                     for adj in range(0,len(comp.adjectives)):
                         adjectives_f.append(adj)
                 item_flags.append(productFlag)
@@ -118,15 +118,18 @@ class Character():
         story = ''
         story_new = Story(self,self.story,"present simple")
         story_new.time = story_new.decide_time()
-        ##raw_input(self.story)
+        ###raw_input(self.story)
         index=0
+        if story_new.events.len==0:
+            return normalize("i have nothing to tell yet")
+
         for event in story_new.events:
             if index>0:
                 story+='. '+story_new.construct(event)
             else:
                 story+=story_new.construct(event)
             index+=1
-        #raw_input(story)
+        ##raw_input(story)
         story = normalize(story)
         print(story)
         return story
@@ -221,17 +224,17 @@ def discover_time(hour):
 
 
 def normalize(text):
-    raw_input(text)
+    #raw_input(text)
     text = text.split('. ')
     fintext = ''
     for part in text:
-        raw_input(part)
+        #raw_input(part)
         parti = part[1].capitalize()
         fintext+=parti
         fintext+=part[2:len(part)]
         fintext.encode('utf-8')
         fintext+='. '
-        raw_input(fintext)
+        #raw_input(fintext)
     #Because fuck you python+unicode and strings, that's why
     return fintext
 
@@ -246,7 +249,7 @@ def goal_constructor(char):
     discover_hours = discvoer_timeObj[1]
     randomint = 20
   # randomint = random.randint(0,100)
-    #raw_input(randomint)
+    ##raw_input(randomint)
     #travel
     if randomint<25:
         for loc in locations:
@@ -549,19 +552,19 @@ def associate(string):
                 for component in flag.flag_components:
                     for adjective in component.adjectives:
                         if adjective.find(string) is not -1 :
-                            raw_input(adjective+' is something with '+ string)
+                            #raw_input(adjective+' is something with '+ string)
 
                     for verb_list in  component.verbs:
                         for verb in verb_list:
                              if verb.find(string) is not -1 :
                                  if not flag.nouns:
-                                    raw_input('things you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
+                                    #raw_input('things you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
                                  else:
-                                    raw_input(random.choice(flag.nouns)+' you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
+                                    #raw_input(random.choice(flag.nouns)+' you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
                 if flag.nouns:
                     for noun in flag.nouns:
                         if noun.find(string) is not -1:
-                            raw_input('noun')
+                            #raw_input('noun')
 
 class Flag():
 
@@ -766,7 +769,7 @@ class Story():
                 Iam=True
             if part=='$verb':
                 print('debug: verb construction')
-                #raw_input(verb)
+                ##raw_input(verb)
                 if self.time=='present simple':
                     print('debug: present')
                     verb = construct_present_simple(flag,comp,verb)
@@ -789,7 +792,7 @@ class Story():
                     else:
                         message+='I '
                 else:
-                    #raw_input(nouns)
+                    ##raw_input(nouns)
                     message+=' '+random.choice(nouns)
             elif part=='%tobe':
                 tobe=''
@@ -1091,7 +1094,7 @@ def get_time():
     global Hour, Minute, Day
     nowtime = datetime.now()
     Hour = nowtime.hour
-    raw_input(Hour)
+    #raw_input(Hour)
     Minute = nowtime.minute
     Day = nowtime.today().weekday()
 
@@ -1107,18 +1110,20 @@ def main():
 ##    #,owner,event,time)
 ##      story_dummy = Story(owner = discover,events = [event_dummy] ,time=random.choice(times))
 ##      story_dummy.construct(story_dummy.events[0])
-    #associate(#raw_input())
+    #associate(##raw_input())
 ##
 ##     print(tell_location(discover.location))
 ##    pass
 ##
 
-
-if __name__ == '__main__':
+def init():
     get_time()
     discover_time(Hour)
     discover = Character(100,2500,HomeLoc,Disinventory,100,50)
     discover.routine_start()
+
+if __name__ == '__main__':
+
     discover.goal_processing()
     discover.goal_processing()
     discover.goal_processing()

@@ -80,9 +80,11 @@ def mood_evaluate(msg):
 
 @app.before_first_request
 def automatic():
-        discoverChan = discover()
+        worldProcessing.init_discover()
         print("Discover Chan setted-up!")
-        send_message(u'1579846222104780', 'Discover is back from the sleep')
+        worldProcessing.start_routine()
+        worldProcessing.process_goals()
+        send_message(u'1579846222104780', worldProcessing.return_thoughts())
         time.sleep(10)
         return 'ok',200
 

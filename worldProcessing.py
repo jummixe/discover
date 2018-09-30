@@ -11,7 +11,7 @@
 import discover as discoverWorld
 
 def return_thoughts():
-    return discover.rethink_events()
+    return discoverWorld.rethink_events()
 
 def init_discover():
     global discoverChar

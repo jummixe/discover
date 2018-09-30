@@ -80,7 +80,9 @@ def mood_evaluate(msg):
 
 @app.before_first_request
 def automatic():
-        send_message(u'1579846222104780', 'блыыыыын')
+        discoverChan = discover()
+        print("Discover Chan setted-up!")
+        send_message(u'1579846222104780', 'Discover is back from the sleep')
         time.sleep(10)
         return 'ok',200
 
@@ -149,11 +151,8 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-#Function executed before first request on the server.
-@app.before_first_request
-def before_first_request():
-        discoverChan = discover.init_discover()
-        print("Discover Chan setted-up!")
+
+
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     try:

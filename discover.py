@@ -544,27 +544,27 @@ compBadTaste = Flag_Component(
                             ]
                             )
 
-def associate(string):
-    list = string.split(' ')
-    for string in list:
-        if len(string)>2:
-            for flag in all_flags:
-                for component in flag.flag_components:
-                    for adjective in component.adjectives:
-                        if adjective.find(string) is not -1 :
-                            #raw_input(adjective+' is something with '+ string)
-
-                    for verb_list in  component.verbs:
-                        for verb in verb_list:
-                             if verb.find(string) is not -1 :
-                                 if not flag.nouns:
-                                    #raw_input('things you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
-                                 else:
-                                    #raw_input(random.choice(flag.nouns)+' you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
-                if flag.nouns:
-                    for noun in flag.nouns:
-                        if noun.find(string) is not -1:
-                            #raw_input('noun')
+##def associate(string):
+##    list = string.split(' ')
+##    for string in list:
+##        if len(string)>2:
+##            for flag in all_flags:
+##                for component in flag.flag_components:
+##                    for adjective in component.adjectives:
+##                        if adjective.find(string) is not -1 :
+##                            #raw_input(adjective+' is something with '+ string)
+##
+##                    for verb_list in  component.verbs:
+##                        for verb in verb_list:
+##                             if verb.find(string) is not -1 :
+##                                 if not flag.nouns:
+##                                    #raw_input('things you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
+##                                 else:
+##                                    #raw_input(random.choice(flag.nouns)+' you can:'+ string+', you can describe with the word:'+random.choice(component.adjectives))
+##                if flag.nouns:
+##                    for noun in flag.nouns:
+##                        if noun.find(string) is not -1:
+##                            #raw_input('noun')
 
 class Flag():
 

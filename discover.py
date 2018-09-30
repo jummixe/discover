@@ -129,6 +129,7 @@ class Character():
         #raw_input(story)
         story = normalize(story)
         print(story)
+        return story
 
     def create_path(self,destination):
         print('>>>>>>>>>>>>>>>>>')

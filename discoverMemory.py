@@ -10,9 +10,9 @@
 #-------------------------------------------------------------------------------
 from flask_sqlalchemy import SQLAlchemy
 import discoverServer as Server
-Database = SQLAlchemy()
+db = SQLAlchemy()
 
-class Character(Database.Model):
+class Character(db.Model):
    __tablename__ = "stats"
    date = db.Column(db.TIMESTAMP , primary_key=True)
    location = db.Column(db.Integer)
@@ -30,8 +30,8 @@ class Character(Database.Model):
         return '<date>' % self.date
 
 
-#Database of bot's contacts
-class Friends(Database.Model):
+#db of bot's contacts
+class Friends(db.Model):
     __tablename__ = "friends"
     page_id = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP , primary_key=True)
@@ -43,7 +43,7 @@ class Friends(Database.Model):
         return '<date>' % self.date
 
 #Databse of bot's inventory
-class Products(Database.Model):
+class Products(db.Model):
     __tablename__ = "inventory"
     id = db.Column(db.Integer, primary_key=True)
     type_id = db.Column(db.Integer)
@@ -58,7 +58,7 @@ class Products(Database.Model):
     def __repr__(self):
         return '<date>' % self.date
 
-class Events(Database.Model):
+class Events(db.Model):
     __tablename__ = "events"
     id = db.Column(db.Integer, primary_key=True)
     event_type = db.Column(db.String)
@@ -72,11 +72,11 @@ class Events(Database.Model):
     def __repr__(self):
         return '<date>' % self.date
 def init(app):
-    global Database
-    Database = SQLAlchemy(app)
+    global db
+    db = SQLAlchemy(app)
 
 def main(db):
-    global Database
+    global db
 
 
 if __name__ == '__main__':

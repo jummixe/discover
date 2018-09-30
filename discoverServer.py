@@ -26,11 +26,17 @@ def get_self():
 
 def set_database():
     global db
-    db = discoverMemory.init(SQLAlchemy(app))
+    db = discoverMemory(SQLAlchemy(app))
 
 
 def get_database():
-    return db
+    global db
+    if db!=null:
+        return db
+    else:
+        db = SQLAlchemy(app)
+        return db
+
 
 #configurating  Discover
 global timestart, routine

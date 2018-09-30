@@ -11,6 +11,8 @@
 from flask_sqlalchemy import SQLAlchemy
 import discoverServer as Server
 
+Database = Server.get_database()
+
 class Character(Database.Model):
    __tablename__ = "stats"
    date = db.Column(db.TIMESTAMP , primary_key=True)
@@ -73,7 +75,7 @@ class Events(Database.Model):
 
 def main(db):
     print db
-    Database = db
+    Database = discoverServer.get_database()
 
 if __name__ == '__main__':
     main(*args)

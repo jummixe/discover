@@ -152,11 +152,8 @@ def send_message(recipient_id, message_text):
 #Function executed before first request on the server.
 @app.before_first_request
 def before_first_request():
-    if not discoverChan:
         discoverChan = discover.init_discover()
         print("Discover Chan setted-up!")
-    else:
-        print("Discover Chan already here!")
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     try:
@@ -222,4 +219,4 @@ if __name__ == '__main__':
     print(str(timestart))
     #running the server
     app.run(debug=True)
-    set_database()
+    discoverMemory.init(app)

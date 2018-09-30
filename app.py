@@ -2,6 +2,7 @@
 import os
 import sys
 import json
+import codecs
 from datetime import datetime,  date
 import time
 import requests
@@ -22,8 +23,7 @@ routine = []
 activity_start=['09','10','11','12']
 activity_end = ['00','01','02','03','04','05']
 
-bad_signs = ['( ','((',':(',';(','хуй','бля','сук','ненавижу','хейт','йобаний','піздос','хуйово','мда','блеть','гавно','ужас','косячно',' плохо']
-good_signs =[')','))',':)','<3','отличн','супер','хорош',' удал','неплох','ок','верю','надеюсь','будет','пройдёт','прокатит','прорвё','never give','вуху']
+
 #Teaching to evaluate emotions
 def mood_evaluate(msg):
     #basic mood value = 50 = content
@@ -80,7 +80,8 @@ class Friends(db.Model):
     def __init__(self,date, page_id):
         self.date = date
         self.page_id=page_id
-
+    def __repr__(self):
+        return '<date>' % self.date
 
 #Databse of bot's inventory
 class Products(db.Model):
@@ -92,12 +93,30 @@ class Products(db.Model):
     def __init__(self,type_id, price):
         self.type_id=type_id
         self.price = price
+    def __repr__(self):
+        return '<date>' % self.date
+
+class Events(db.Model):
+    __tablename__ = "events"
+    id = db.Column(db.Integer, primary_key=True)
+    event_type = db.Column(db.String)
+    location = db.Column(db.Integer)
+    date = db.Column(db.TIMESTAMP , primary_key=True)
+
+    def __init__(self,event_type, location, date):
+        self. event_type = event_type
+        self.location = location
+        self.date = date
+    def __repr__(self):
+        return '<date>' % self.date
+
 
 @app.before_first_request
 def automatic():
         send_message(u'1579846222104780', 'блыыыыын')
         time.sleep(10)
         return 'ok',200
+
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back

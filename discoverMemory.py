@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 from flask_sqlalchemy import SQLAlchemy
 import discoverServer as Server
-Database = SQLAlchemy.get_app(Server.app)
+Database = SQLAlchemy()
 
 class Character(Database.Model):
    __tablename__ = "stats"
@@ -71,11 +71,13 @@ class Events(Database.Model):
         self.date = date
     def __repr__(self):
         return '<date>' % self.date
+def init(app):
+    global Database
+    Database = SQLAlchemy(app)
 
 def main(db):
     global Database
-    print db
-    Database = Server.get_database()
+
 
 if __name__ == '__main__':
     main(*args)

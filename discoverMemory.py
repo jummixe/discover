@@ -11,7 +11,6 @@
 from flask_sqlalchemy import SQLAlchemy
 import discoverServer as Server
 
-Database = Server.get_database()
 
 class Character(Database.Model):
    __tablename__ = "stats"
@@ -74,8 +73,9 @@ class Events(Database.Model):
         return '<date>' % self.date
 
 def main(db):
+    global Database
     print db
-    Database = discoverServer.get_database()
+    Database = Server.get_database()
 
 if __name__ == '__main__':
     main(*args)

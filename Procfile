@@ -1,1 +1,1 @@
-web: gunicorn app:discoverServer --log-file=-
+web: gunicorn discoverServer:app --log-file=-

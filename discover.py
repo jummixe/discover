@@ -120,7 +120,7 @@ class Character():
         story_new.time = story_new.decide_time()
         ###raw_input(self.story)
         index=0
-        if story_new.events.len==0:
+        if len(story_new.events)==0:
             return normalize("i have nothing to tell yet")
 
         for event in story_new.events:

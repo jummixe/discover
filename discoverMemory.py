@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 from flask_sqlalchemy import SQLAlchemy
 import discoverServer as Server
-
+Database = SQLAlchemy.get_app(Server.app)
 
 class Character(Database.Model):
    __tablename__ = "stats"

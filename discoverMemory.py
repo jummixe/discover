@@ -76,7 +76,7 @@ def init(app):
     db = SQLAlchemy(app)
 
 def main(db):
-    global db
+    pass
 
 
 if __name__ == '__main__':

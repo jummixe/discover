@@ -119,7 +119,7 @@ def webhook():
                         if message_text == "Аніме".decode('UTF-8'):
                             send_message(sender_id, sender_id)
                         else:
-                            send_message(sender_id,WorldProcessing.return_thoughts())
+                            send_message(sender_id,worldProcessing.return_thoughts())
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 

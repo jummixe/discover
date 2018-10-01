@@ -220,5 +220,5 @@ if __name__ == '__main__':
     timestart=datetime.now()
     print(str(timestart))
     #running the server
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
     discoverMemory.init(app)

@@ -111,10 +111,26 @@ class Character():
                         adjectives_f.append(adj)
                 item_flags.append(productFlag)
                 event_new =  Event(datetime.now(),event_type='collect',flags=item_flags,verbs=verbs_f,adjectives=adjectives_f,loc=self.location)
+
+        if event_type=='eat':
+            print('eat')
+            item_flags=[]
+            ##raw_input(shop)
+            if shop is not False:
+                for flag in flag.flag_components:
+                 for comp in flag.flag_components:
+                    for verb in range(0,len(comp.verbs)):
+                        verbs_f.append(verb)
+                        ####raw_input(verbs_f)
+                    for adj in range(0,len(comp.adjectives)):
+                        adjectives_f.append(adj)
+                event_new =  Event(datetime.now(),event_type='eat',flags=[tasty_food,nasty_food],verbs=verbs_f,adjectives=adjectives_f,loc=self.location)
+
         self.story.append(event_new)
 
     #creates story summarizing all the events happened
     def rethink_events(self):
+
         story = ''
         story_new = Story(self,self.story,"present simple")
         story_new.time = story_new.decide_time()
@@ -397,6 +413,7 @@ class Item():
         self.id = get_id(Global_items,self)
 
 class Flag_Component():
+
     def __init__(self,adjectives=[],verbs=[[],[],[]],verbs_self=None,pronoun=['mine','my own']):
         self.adjectives = adjectives
         self.verbs = verbs
@@ -652,8 +669,9 @@ pluralowneditems_Flag = Flag(flag_components=[compSelf,compClothesGood],nouns=No
 shoes_Flag = Flag(flag_components=[compSelf,compShoes],nouns=None,plural=False)
 productFlag = Flag(flag_components=[compGeneralBuy],nouns=['item','thing','merchandise','ware'],plural=False)
 tasty_food = Flag(flag_components=[compGeneralVisGood,compGoodTaste],nouns=['food','nutrition'],plural=False)
+nasty_food = Flag(flag_components=[compBadTaste,CompOkTaste,comGeneralVisBad],nouns=['food','edible','ration','dish',plural=False]
 
-yardnatureflag = Flag(flag_components = [compGeneralVisGood,compGeneralInt], nouns =['trees','cats','flowers','birds','leaves','rats','bugs'], plural= True)
+yardnatureflag = Flag(flag_components = [compGeneralVisGood,compGeneralInt], nouns =['trees','cats','flowers','birds','leaves','rats','bugs','dogs','bushes','grassies'], plural= True)
 sceneryFlag = Flag(flag_components = [compGeneralVisGood],nouns = ['mountain ranges','mountains','crests','woods','valleys','creeks','views','sceneries','pictures','landscapes','mountain villages','summits','tops','cliffs'],plural=True)
 moveflag =  Flag(flag_components=[compMoving],nouns=None,plural=False)
 
@@ -956,6 +974,7 @@ def construct_present_perfect(flag,flag_component,verb,what='I',repeat=False):
        return construction
 
 def construct_past_simple(flag,flag_component,verb):
+
     verbs_list = flag_component.verbs[1]
     verb=verb
     construction=''
@@ -965,6 +984,7 @@ def construct_past_simple(flag,flag_component,verb):
     return construction
 
 def construct_past_continious(flag,flag_component):
+
     verbs_list = flag_component.verbs[2]
     verb=verb
     construction=''
@@ -977,6 +997,7 @@ def construct_past_continious(flag,flag_component):
     return construction
 
 def construct_past_continious(flag,flag_component,verb):
+
     verbs_list =  flag_component.verbs[2]
     verb=verb
     construction=''
@@ -989,6 +1010,7 @@ def construct_past_continious(flag,flag_component,verb):
     return construction
 
 def construct_past_perfect(flag,flag_component,verb):
+
     verbs_list = flag_component.verbs[2]
     verb  =verb
     construction = 'had been '
@@ -1070,7 +1092,7 @@ def test_event_constructor(locations):
     event_dummy = Event(0,flags,event_type='observation',verbs=verbs_f,adjectives=adjectives_f,loc=location_event)
     return event_dummy
 
-def test_event_constructoritem(item ):
+def test_event_constructor_item(item ):
 
     flags =[]
     verbs_f=[]
@@ -1123,7 +1145,8 @@ def init():
     discover.routine_start()
 
 if __name__ == '__main__':
-
+    discover = Character(100,2500,HomeLoc,Disinventory,100,50)
+    discover.routine_start()
     discover.goal_processing()
     discover.goal_processing()
     discover.goal_processing()

@@ -16,9 +16,18 @@ def return_thoughts():
 def init_discover():
     global discoverChar
     discoverWorld.get_time()
-    discoverWorld.discover_time(discoverWorld.Hour)
     discoverChar = discoverWorld.Character(100,2500,discoverWorld.HomeLoc,discoverWorld.Disinventory,100,50)
     discoverChar.routine_start()
+
+class routine():
+    def __init__ (self,speed,active=False):
+        self.speed = speed
+        self.active = active
+
+    def time_process():
+        discoverWorld.get_time()
+        discoverWorld.discover_time(discoverWorld.Hour)
+
 
 def process_goals():
     discoverChar.goal_processing()

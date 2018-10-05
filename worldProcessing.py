@@ -20,21 +20,21 @@ def init_discover():
     discoverChar.routine_start()
 
 class routine():
-    def __init__ (self,speed,active=False):
+    def __init__(self,speed,active=False):
         self.speed = speed
         self.active = active
 
-    def time_process():
+    def time_process(self):
         discoverWorld.get_time()
         discoverWorld.discover_time(discoverWorld.Hour)
 
+    def process_goals(self):
+        discoverChar.goal_processing()
 
-def process_goals():
-    discoverChar.goal_processing()
+    def start_routine(self):
+        discoverChar.routine_start()
 
-def start_routine():
-    discoverChar.routine_start()
 
-def remind_inventory(inventory):
-    pass
+    def remind_inventory(inventory):
+        pass
 

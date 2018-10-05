@@ -36,6 +36,7 @@ class Character():
 
     @property
     def region(self):
+        global regions
         for region in regions:
             if self.location.loc_id in region.locations:
                 self.region = region
@@ -257,7 +258,6 @@ def normalize(text):
 #decide when the event Discover Chan talking about happened.
 
 
-
 #construct new goal and return the goal
 def goal_constructor(char):
 
@@ -274,11 +274,11 @@ def goal_constructor(char):
         print('move'+str(locgo.loc_id))
         NewGoal = Goal(owner=char,inventory=None,money=None,location=locgo.loc_id)
     #collect
-    elif randomint>=25 and randomint<=50:
+    elif randomint >= 25 and randomint <= 50:
         print('collect')
         NewGoal = Goal(owner=char,inventory=3,money=None,location=1)
     #earn
-    elif randomint>=50 and randomint<=75:
+    elif randomint >= 50 and randomint <= 75:
         print('earn')
         NewGoal = Goal(owner=char,inventory=None,money=1000,location=1)
     #enjoy
@@ -301,11 +301,11 @@ def day_goal():
         if period[0] == 'night':
             NewGoal == Goal(owner=char,inventory=None,money=None,location=1)
         if period[0] == 'worktime':
-            NewGoal == Goal(owner=char,inventory=None,money=None,location=1)
+            NewGoal == Goal(owner=char,inventory=None,money=1000,location=1)
         if period[0] == 'evening':
-            NewGoal == Goal(owner=char,inventory=None,money=None,location=1)
+            NewGoal == Goal(owner=char,inventory=None,money=None,location=1,mood=100)
         if period[0] == 'breakfast' or period[0] == 'lunch' or period[0]=='dinner':
-            NewGoal == Goal(owner=char,inventory=None,money=None,location=1)
+            NewGoal == Goal(owner=char,inventory=None,money=None,location=1,hunger=100)
 
 class Goal():
 
@@ -649,7 +649,7 @@ class Inventory():
         return len(self.items)
 
     def search_flags(self,flags=[]):
-        list_return=list_return
+        list_return=list_return()
         for item in self.items:
             for flag in flags:
                 if flag in item.flags:
@@ -659,68 +659,64 @@ class Inventory():
                     list_return.remove(item)
         return list_return
 
+
 homefurniture_Flag = Flag(flag_components = [compGeneralVisGood,compGeneralInt,compSelf ],nouns=['sofa','chair','computer','tv','window','armchair','wardrobe','bed','table'])
 sittingfurniture_Flag = Flag(flag_components = [compGeneralVisGood,compGeneralInt,compSitting],nouns=['sofa','chair','armchair','bed'])
 
-#Name = None because item's name itself can count as a noun!!!!!
+##Name = None because item's name itself can count as a noun!!!!!
 owneditems_Flag = Flag(flag_components=[compSelf,compClothesGood],nouns=None,plural=False)
 gooditems_Flag = Flag(flag_components=[compClothesGood],nouns=None,plural=True)
 pluralowneditems_Flag = Flag(flag_components=[compSelf,compClothesGood],nouns=None,plural=True)
 shoes_Flag = Flag(flag_components=[compSelf,compShoes],nouns=None,plural=False)
 productFlag = Flag(flag_components=[compGeneralBuy],nouns=['item','thing','merchandise','ware'],plural=False)
 tasty_food = Flag(flag_components=[compGeneralVisGood,compGoodTaste],nouns=['food','nutrition'],plural=False)
-nasty_food = Flag(flag_components=[compBadTaste,CompOkTaste,comGeneralVisBad],nouns=['food','edible','ration','dish',plural=False]
+nasty_food = Flag(flag_components=[compBadTaste,CompOkTaste,comGeneralVisBad],nouns=['food','edible','ration','dish'],plural=False);
 
 yardnatureflag = Flag(flag_components = [compGeneralVisGood,compGeneralInt], nouns =['trees','cats','flowers','birds','leaves','rats','bugs','dogs','bushes','grassies'], plural= True)
 sceneryFlag = Flag(flag_components = [compGeneralVisGood],nouns = ['mountain ranges','mountains','crests','woods','valleys','creeks','views','sceneries','pictures','landscapes','mountain villages','summits','tops','cliffs'],plural=True)
-moveflag =  Flag(flag_components=[compMoving],nouns=None,plural=False)
+moveflag = Flag(flag_components=[compMoving],nouns=None,plural=False);
 
+DiscoverJacket = Item(name='soft-shell jacket',price=0,flags=[owneditems_Flag]);
+DiscoverPants = Item(name='sport legwear',price=0,flags=[owneditems_Flag]);
+DiscoverShoes = Item(name='chinese sneakers',price=0,flags=[pluralowneditems_Flag ,shoes_Flag ]);
 
-
-DiscoverJacket = Item(name='soft-shell jacket',price=0,flags=[owneditems_Flag])
-DiscoverPants = Item(name='sport legwear',price=0,flags=[owneditems_Flag])
-DiscoverShoes = Item(name='chinese sneakers',price=0,flags=[pluralowneditems_Flag ,shoes_Flag ])
-
-StringsPanties = Item(name='panties', price=100,flags=[gooditems_Flag])
+StringsPanties = Item(name='panties', price=100,flags=[gooditems_Flag]);
 Disinventory = Inventory()
 Disinventory.add(DiscoverJacket)
 Disinventory.add(DiscoverPants)
 Disinventory.add(DiscoverShoes)
 
-
-
-HomeReg = Region(0,names={'what':'Uzhhorod','where':'in Uzhhorod'},hubs=[],locations=[0,1,2],connections=[],flags=[])
-
+HomeReg = Region(0,names={'what':'Uzhhorod','where':'in Uzhhorod'},hubs=[],locations=[0,1,2],connections=[],flags=[]);
 HomeLoc = Location(0,names={'what':'my flat','where':'in my flat' },connections=[1],flags=[homefurniture_Flag,sittingfurniture_Flag])
-NeighbourHood = Location(1,names={'what':'my yard','where':'in my yard'},connections=[0,2],flags=[yardnatureflag])
-PlishkaLoc = Location(2,names={'what':'Plishka','where':'at the Plishka'},connections=[1],flags=[yardnatureflag,sceneryFlag])
+NeighbourHood = Location(1,names={'what':'my yard','where':'in my yard'},connections=[0,2],flags=[yardnatureflag]);
+PlishkaLoc = Location(2,names={'what':'Plishka','where':'at the Plishka'},connections=[1],flags=[yardnatureflag,sceneryFlag]);
 
-Regular_Shop = Shop([1],[3,4])
+Regular_Shop = Shop([1],[3,4]);
 
 shops=[Regular_Shop]
-locations = [HomeLoc,NeighbourHood,PlishkaLoc]
+locations = [HomeLoc,NeighbourHood,PlishkaLoc];
 
-adverbs_before=['yesterday','before','recently','once','then']
-adverb_future=['tommorow','next','somwhen','in the future']
-adverb_here=['here']
-adverb_there=['there']
-adverb_nowhere=['nowhere','elsewhere','somewhere']
+adverbs_before=['yesterday','before','recently','once','then'];
+adverb_future=['tommorow','next','somwhen','in the future'];
+adverb_here=['here'];
+adverb_there=['there'];
+adverb_nowhere=['nowhere','elsewhere','somewhere'];
 
-linking_words = ['however','also','moreover','in addition']
+linking_words = ['however','also','moreover','in addition'];
 
-opinions = ['right as i think','as i think','imho',' in my opinion','as i see']
+opinions = ['right as i think','as i think','imho',' in my opinion','as i see'];
 
-sequenceobs1= ['$verb','$noun',', and ','%opinion','%pronoun','%tobe', '%adjective']
-sequenceobs2= ['%link','$verb','$noun','%timeword','and','%link','%pronoun','%tobe', '%adjective']
-sequenceobs3= ['%link','$verb','$noun','%timeword','%location_w','%link','%pronoun','%tobe', '%adjective']
-sequenceobs4= ['$verb','%adjective','$noun','because','%pronoun','%tobe','%adjective']
+sequenceobs1= ['$verb','$noun',', and ','%opinion','%pronoun','%tobe', '%adjective'];
+sequenceobs2= ['%link','$verb','$noun','%timeword','and','%link','%pronoun','%tobe', '%adjective'];
+sequenceobs3= ['%link','$verb','$noun','%timeword','%location_w','%link','%pronoun','%tobe', '%adjective'];
+sequenceobs4= ['$verb','%adjective','$noun','because','%pronoun','%tobe','%adjective'];
 
-observation_sequences=[sequenceobs1,sequenceobs2,sequenceobs3,sequenceobs4]
+observation_sequences=[sequenceobs1,sequenceobs2,sequenceobs3,sequenceobs4];
 
 
-sequencemove1=['$verb','%location']
-move_sequences = [sequencemove1]
-times = ['present simple','present continious','present perfect','past simple','past perfect','past continious']
+sequencemove1=['$verb','%location'];
+move_sequences = [sequencemove1];
+times = ['present simple','present continious','present perfect','past simple','past perfect','past continious'];
 
 
 

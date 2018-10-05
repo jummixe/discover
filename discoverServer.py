@@ -51,7 +51,6 @@ def automatic():
     worldProcessing.init_discover()
     print("Discover Chan setted-up!")
     worldProcessing.init_discover()
-    worldProcessing.process_goals()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
     return 'ok', 200

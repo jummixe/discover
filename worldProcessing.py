@@ -19,7 +19,10 @@ def init_discover():
     global discoverChar
     discoverWorld.get_time()
     discoverChar = discoverWorld.Character(100, 2500, discoverWorld.HomeLoc, discoverWorld.Disinventory, 100, 50)
-    discoverChar.routine_start()
+    basicRoutine = routine(speed=1,active=True)
+    basicRoutine.start_routine()
+    basicRoutine.time_process()
+    basicRoutine.process_goals()
 
 
 class routine():

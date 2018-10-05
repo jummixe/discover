@@ -71,6 +71,7 @@ class Events(db.Model):
         self.date = date
     def __repr__(self):
         return '<date>' % self.date
+
 def init(app):
     global db
     db = SQLAlchemy(app)

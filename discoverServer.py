@@ -14,6 +14,7 @@ import tweepy
 import discover
 import worldProcessing
 import discoverMemory
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
@@ -51,6 +52,10 @@ def automatic():
     worldProcessing.init_discover()
     print("Discover Chan setted-up!")
     worldProcessing.init_discover()
+    routine = worldProcessing.init_routine()
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=routine, trigger="interval",minutes=15)
+    scheduler.start()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
     return 'ok', 200
@@ -87,11 +92,8 @@ def webhook():
                     recipient_id = messaging_event["recipient"][
                         "id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    if sender_id != my_id:
-                        if message_text == "Аніме".decode('UTF-8'):
-                            send_message(sender_id, sender_id)
-                        else:
-                            send_message(sender_id, worldProcessing.return_thoughts())
+                    worldProcessing.process(messaging_event)
+
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 

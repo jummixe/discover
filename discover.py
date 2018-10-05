@@ -301,7 +301,7 @@ def day_goal(char):
     time_now = discover_time(Hour)[0]
     for period in time_now:
         if period[0] == 'night':
-            NewGoal = Goal(owner=char, inventory=None, money=None, location=1)
+            NewGoal = Goal(owner=char, inventory=None, money=None, location=1,specify="sleep")
         if period[0] == 'worktime':
             NewGoal = Goal(owner=char, inventory=None, money=1000, location=1)
         if period[0] == 'evening':
@@ -310,7 +310,7 @@ def day_goal(char):
             NewGoal = Goal(owner=char, inventory=None, money=None, location=1, hunger=100)
 
 
-class Goal():
+class Goal:
 
     def __init__(self, owner=None, inventory=None, money=None, mood=None, location=None, specify=None, hunger=None):
         self.inventory = inventory
@@ -420,7 +420,7 @@ class Item():
         self.id = get_id(Global_items, self)
 
 
-class Flag_Component():
+class FlagComponent():
 
     def __init__(self, adjectives=[], verbs=[[], [], []], verbs_self=None, pronoun=['mine', 'my own']):
         self.adjectives = adjectives
@@ -429,7 +429,7 @@ class Flag_Component():
         self.pronoun = pronoun
 
 
-compGeneralBuy = Flag_Component(
+compGeneralBuy = FlagComponent(
     adjectives=['affordable', 'pricy', 'cheap', 'common', 'democratic-priced', 'unexpensive', 'low-cost'],
 
     verbs=[
@@ -437,7 +437,7 @@ compGeneralBuy = Flag_Component(
         ['bought', 'got', 'collected', 'purchased', 'obtained', 'acquired'],
         ['buying', 'geting', 'collecting', 'purchasing', 'obtaining', 'acquiring']])
 
-compGeneralVisGood = Flag_Component(
+compGeneralVisGood = FlagComponent(
     adjectives=['pretty', 'beautiful', 'breathtaking', 'enourmous', 'wonderful', 'pleasant', 'lovely', 'fetching'],
 
     verbs=[
@@ -451,7 +451,7 @@ compGeneralVisGood = Flag_Component(
         ['stood', 'stayed', 'sat']
     ])
 
-compGeneralInt = Flag_Component(
+compGeneralInt = FlagComponent(
     adjectives=['interesting', 'outstanding', 'original', 'originative'],
     verbs=[
         ['interact with', 'use', 'caress', 'operate', 'manipulate'],
@@ -460,7 +460,7 @@ compGeneralInt = Flag_Component(
     ]
 )
 
-compGeneralVisBad = Flag_Component(
+compGeneralVisBad = FlagComponent(
     adjectives=['negative', 'bad-looking', 'horrible', 'disgusting', 'terrible', 'horrific'],
 
     verbs=[
@@ -470,7 +470,7 @@ compGeneralVisBad = Flag_Component(
     ]
 )
 
-compDangerous = Flag_Component(
+compDangerous = FlagComponent(
     adjectives=['dangerous', 'menacing', 'hazardous', 'unsafe', 'precarious'],
     verbs=[
         ['avoid', 'ignore', 'stay away from', 'refrain from'],
@@ -479,7 +479,7 @@ compDangerous = Flag_Component(
     ]
 )
 
-compClothesGood = Flag_Component(
+compClothesGood = FlagComponent(
     adjectives=['fit', 'comfortable', 'long-enough', 'durable', 'casual', 'fine', 'fitting', 'nice-looking'],
     verbs=[
         ['wear', 'examine', 'check'],
@@ -488,7 +488,7 @@ compClothesGood = Flag_Component(
     ]
 )
 
-compClothesDirty = Flag_Component(
+compClothesDirty = FlagComponent(
     adjectives=['dirty', 'muddy', 'messy', 'smelly', 'filthy', 'nasty', 'scruffy', 'mucky'],
     verbs=[
         ['wear', 'examine', 'fix'],
@@ -497,7 +497,7 @@ compClothesDirty = Flag_Component(
     ]
 )
 
-compShoes = Flag_Component(
+compShoes = FlagComponent(
     adjectives=['fit', 'membran', 'touristic', 'hiking', 'travel', 'waterproof', 'polyester'],
     verbs=[
         ['wear', 'examine', 'check'],
@@ -506,7 +506,7 @@ compShoes = Flag_Component(
     ]
 )
 
-compSelf = Flag_Component(
+compSelf = FlagComponent(
     adjectives=['good', 'loveable'],
     verbs=[
         ['cherish', 'love', 'enjoy', 'keep', 'preserve', 'retain'],
@@ -515,7 +515,7 @@ compSelf = Flag_Component(
     ]
 )
 
-compOutside = Flag_Component(
+compOutside = FlagComponent(
     adjectives=['gorgeous', 'hustly', 'busy', 'silent', 'peaceful', 'happy'],
     verbs=[
         ['spectate', 'pass through', 'walk through'],
@@ -524,7 +524,7 @@ compOutside = Flag_Component(
     ]
 )
 
-compSitting = Flag_Component(
+compSitting = FlagComponent(
     adjectives=['comfortable', 'cosy', 'plushy', 'soft', 'comfy'],
     verbs=[
         ['sit on', 'relax on', 'lay down on'],
@@ -533,7 +533,7 @@ compSitting = Flag_Component(
     ]
 )
 
-compMoving = Flag_Component(
+compMoving = FlagComponent(
     adjectives=['quick', 'slow', 'fast', 'rapid'],
     verbs=[
         ['move to', 'walk to', 'go to'],
@@ -542,7 +542,7 @@ compMoving = Flag_Component(
     ]
 )
 
-compGoodTaste = Flag_Component(
+compGoodTaste = FlagComponent(
     adjectives=['tasty', 'delicious', 'flavourous', 'yummy', 'lush', 'luscious'],
     verbs=[
         ['eat', 'yum', 'consume', 'devour', 'ingest'],
@@ -551,7 +551,7 @@ compGoodTaste = Flag_Component(
     ]
 )
 
-compOkTaste = Flag_Component(
+compOkTaste = FlagComponent(
     adjectives=['ok', 'edible', 'consumable', ],
     verbs=[
         ['eat', 'yum', 'consume', 'devour', 'ingest'],
@@ -560,7 +560,7 @@ compOkTaste = Flag_Component(
     ]
 )
 
-compBadTaste = Flag_Component(
+compBadTaste = FlagComponent(
     adjectives=['horrible', 'unsavory', 'distasteful', 'unpatable', 'unconsumable', ],
     verbs=[
         ['shovel', 'jam', 'consume', 'devour', 'ingest'],
@@ -597,11 +597,6 @@ class Flag():
     def __init__(self, flag_components=[], nouns=None, plural=False):
         self.flag_components = flag_components
         self.nouns = nouns
-        self.flag_adjectives
-        # infinitive
-        self.flag_verb_inf
-        # verbs 1-Present 2-Past 3-Future 4-Infinitive
-        self.flag_verbs
         self.plural = plural
         all_flags.append(self)
 

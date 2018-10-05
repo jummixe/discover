@@ -3,7 +3,7 @@ import os
 import sys
 import json
 import codecs
-from datetime import datetime,  date
+from datetime import datetime, date
 import time
 import requests
 import random
@@ -20,9 +20,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-
 def get_self():
     return app
+
 
 def set_database():
     global db
@@ -31,62 +31,31 @@ def set_database():
 
 def get_database():
     global db
-    if db!=null:
+    if db is not None:
         return db
     else:
         db = SQLAlchemy(app)
         return db
 
 
-#configurating  Discover
+# configurating  Discover
 global timestart, routine
 routine = []
 
-activity_start=['09','10','11','12']
-activity_end = ['00','01','02','03','04','05']
-
-
-#Teaching to evaluate emotions
-def mood_evaluate(msg):
-    #basic mood value = 50 = content
-    msg = msg.encode('utf-8')
-    msg = msg.lower()
-    mood = 50
-    lenght = len(msg)
-    #How one sign of bad mood affects the whole image
-    symbol_koeff = 100/lenght
-    #Counting bad signs
-    for sign in bad_signs:
-        count_signs = msg.find(sign)
-        if count_signs >-1:
-            mood= mood-symbol_koeff*count_signs
-    #Counting good signs
-    for sign in good_signs:
-          count_signs = msg.find(sign)
-          if count_signs >-1:
-            mood= mood+symbol_koeff*count_signs
-    if mood<10:
-        return 'very bad'
-    if mood<25:
-        return 'bad'
-    if mood>=25 and mood<=65:
-        return 'ok'
-    if mood>=85:
-        return 'very good'
-    if mood>65:
-        return 'good'
-
+activity_start = ['09', '10', '11', '12']
+activity_end = ['00', '01', '02', '03', '04', '05']
 
 
 @app.before_first_request
 def automatic():
-        worldProcessing.init_discover()
-        print("Discover Chan setted-up!")
-        worldProcessing.start_routine()
-        worldProcessing.process_goals()
-        send_message(u'1579846222104780', worldProcessing.return_thoughts())
-        time.sleep(10)
-        return 'ok',200
+    worldProcessing.init_discover()
+    print("Discover Chan setted-up!")
+    worldProcessing.start_routine()
+    worldProcessing.process_goals()
+    send_message(u'1579846222104780', worldProcessing.return_thoughts())
+    time.sleep(10)
+    return 'ok', 200
+
 
 @app.route('/', methods=['GET'])
 def verify():
@@ -98,7 +67,10 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
-x=1
+
+
+x = 1
+
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -111,15 +83,16 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 if messaging_event.get("message"):  # someone sent us a message
-
-                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
-                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                    my_id = "0"
+                    sender_id = messaging_event["sender"]["id"]  # the facebook ID of the person sending you the message
+                    recipient_id = messaging_event["recipient"][
+                        "id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     if sender_id != my_id:
                         if message_text == "Аніме".decode('UTF-8'):
                             send_message(sender_id, sender_id)
                         else:
-                            send_message(sender_id,worldProcessing.return_thoughts())
+                            send_message(sender_id, worldProcessing.return_thoughts())
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 
@@ -128,11 +101,10 @@ def webhook():
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
                     pass
-    return 'ok',200
+    return 'ok', 200
 
 
 def send_message(recipient_id, message_text):
-
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
@@ -155,8 +127,6 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 
-
-
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     try:
         if type(msg) is dict:
@@ -169,9 +139,10 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
 
-#checking out status of the server if it's already online.
+
+# checking out status of the server if it's already online.
 def check_status():
-  def start_loop():
+    def start_loop():
         not_started = True
         while not_started:
             print('In start loop')
@@ -184,41 +155,44 @@ def check_status():
             except:
                 print('Server not yet started')
             time.sleep(2)
-  print('Started runner')
-  thread = threading.Thread(target=start_loop)
-  thread.start()
+
+    print('Started runner')
+    thread = threading.Thread(target=start_loop)
+    thread.start()
 
 
 def init():
     global twitter
     consumer_key = os.environ["CONSUMER_KEY_TWITTER"]
-    consumer_secret= os.environ["CONSUMER_SECRET_TWITTER"]
-    access_key=os.environ["ACCESS_KEY_TWITTER"]
-    access_secret=os.environ["ACCESS_SECRET_TWITTER"]
+    consumer_secret = os.environ["CONSUMER_SECRET_TWITTER"]
+    access_key = os.environ["ACCESS_KEY_TWITTER"]
+    access_secret = os.environ["ACCESS_SECRET_TWITTER"]
     print(consumer_key)
     print('succes')
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
-    twitter=tweepy.API(auth)
+    twitter = tweepy.API(auth)
+
 
 def tweet(twit):
-    if len(twit)<=140 and len(twit)>0:
-        twitter.update_status(twit) #обновляем статус (постим твит)
+    if len(twit) <= 140 and len(twit) > 0:
+        twitter.update_status(twit)  # обновляем статус (постим твит)
         return True
     else:
         return False
+
 
 init()
 
 if __name__ == '__main__':
     print("Server response")
-    #checking status of server before running first functions
+    # checking status of server before running first functions
     check_status()
     worldProcessing.init_discover()
-    #initiliazing twitter
-    #remembering the time we started
-    timestart=datetime.now()
+    # initiliazing twitter
+    # remembering the time we started
+    timestart = datetime.now()
     print(str(timestart))
-    #running the server
+    # running the server
     app.run(debug=True, use_reloader=False)
     discoverMemory.init(app)

@@ -295,17 +295,17 @@ def goal_constructor(char):
 #format: hours
 
 #goal-creation based on the day timetable
-def day_goal():
+def day_goal(char):
     time_now = discover_time(Hour)[0]
     for period in time_now:
         if period[0] == 'night':
-            NewGoal == Goal(owner=char,inventory=None,money=None,location=1)
+            NewGoal = Goal(owner=char,inventory=None,money=None,location=1)
         if period[0] == 'worktime':
-            NewGoal == Goal(owner=char,inventory=None,money=1000,location=1)
+            NewGoal =  Goal(owner=char,inventory=None,money=1000,location=1)
         if period[0] == 'evening':
-            NewGoal == Goal(owner=char,inventory=None,money=None,location=1,mood=100)
+            NewGoal = Goal(owner=char,inventory=None,money=None,location=1,mood=100)
         if period[0] == 'breakfast' or period[0] == 'lunch' or period[0]=='dinner':
-            NewGoal == Goal(owner=char,inventory=None,money=None,location=1,hunger=100)
+            NewGoal = Goal(owner=char,inventory=None,money=None,location=1,hunger=100)
 
 class Goal():
 
@@ -351,10 +351,10 @@ class Goal():
         if self.hunger:
             if self.owner.hunger<self.hunger:
                 suggestions.append("eat")
-                return suggestionns
+                return suggestions
 
         if self.specify:
-            suggestions.append(specify)
+            suggestions.append(self.specify)
             return suggestions
 
         if suggestions == []:
@@ -670,7 +670,7 @@ pluralowneditems_Flag = Flag(flag_components=[compSelf,compClothesGood],nouns=No
 shoes_Flag = Flag(flag_components=[compSelf,compShoes],nouns=None,plural=False)
 productFlag = Flag(flag_components=[compGeneralBuy],nouns=['item','thing','merchandise','ware'],plural=False)
 tasty_food = Flag(flag_components=[compGeneralVisGood,compGoodTaste],nouns=['food','nutrition'],plural=False)
-nasty_food = Flag(flag_components=[compBadTaste,CompOkTaste,comGeneralVisBad],nouns=['food','edible','ration','dish'],plural=False);
+nasty_food = Flag(flag_components=[compBadTaste,compOkTaste,compGeneralVisBad],nouns=['food','edible','ration','dish'],plural=False);
 
 yardnatureflag = Flag(flag_components = [compGeneralVisGood,compGeneralInt], nouns =['trees','cats','flowers','birds','leaves','rats','bugs','dogs','bushes','grassies'], plural= True)
 sceneryFlag = Flag(flag_components = [compGeneralVisGood],nouns = ['mountain ranges','mountains','crests','woods','valleys','creeks','views','sceneries','pictures','landscapes','mountain villages','summits','tops','cliffs'],plural=True)
@@ -979,7 +979,7 @@ def construct_past_simple(flag,flag_component,verb):
     #print(construction)
     return construction
 
-def construct_past_continious(flag,flag_component):
+def construct_past_continious(flag,flag_component,verb):
 
     verbs_list = flag_component.verbs[2]
     verb=verb

@@ -11,6 +11,7 @@
 import discover as discoverWorld
 import json
 
+
 def return_thoughts():
     return discoverChar.rethink_events()
 
@@ -21,6 +22,7 @@ def init_discover():
     discoverChar = discoverWorld.Character(100, 2500, discoverWorld.HomeLoc, discoverWorld.Disinventory, 100, 50)
     return discoverChar
 
+
 def init_routine():
     basicRoutine = Routine(speed=1, active=True)
     basicRoutine.start_routine()
@@ -28,15 +30,16 @@ def init_routine():
     basicRoutine.process_goals()
     return basicRoutine
 
+
 def process(messagejson):
     sender = messagejson["sender"]["id"]
     message = messagejson["message"]["text"]
 
     if sender == "1579846222104780":
-            print("Max messaging" + message)
+        print("Max messaging" + message)
 
     else:
-            print("someone_else messaging")
+        print("someone_else messaging")
 
 
 class Routine():

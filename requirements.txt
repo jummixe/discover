@@ -12,4 +12,4 @@ psycopg2==2.7.3.2
 tweepy==3.5.0
 oauthlib==2.0.6
 requests-oauthlib==0.8.0
-apscheduler = 2.1.0
+apscheduler == 2.1.0

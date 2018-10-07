@@ -42,6 +42,15 @@ def process(messagejson):
         print("someone_else messaging")
 
 
+def process_string(id,msg):
+
+    if id == "1579846222104780":
+        print("Max messaging" + msg)
+
+    else:
+        print("someone_else messaging")
+    return "Pip"
+
 class Routine():
 
     def __init__(self, speed, active=False):
@@ -66,6 +75,9 @@ class Routine():
 
     def start_routine(self):
         discoverChar.routine_start()
+
+    def resolve_story (self):
+        discoverChar.rethink_events()
 
     def remind_inventory(inventory):
         pass

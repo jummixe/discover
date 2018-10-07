@@ -299,16 +299,22 @@ def goal_constructor(char):
 # goal-creation based on the day timetable
 def day_goal(char):
     time_now = discover_time(Hour)[0]
+
     for period in time_now:
         if period[0] == 'night':
-            NewGoal = Goal(owner=char, inventory=None, money=None, location=1,specify="sleep")
-        if period[0] == 'worktime':
-            NewGoal = Goal(owner=char, inventory=None, money=1000, location=1)
-        if period[0] == 'evening':
-            NewGoal = Goal(owner=char, inventory=None, money=None, location=1, mood=100)
-        if period[0] == 'breakfast' or period[0] == 'lunch' or period[0] == 'dinner':
-            NewGoal = Goal(owner=char, inventory=None, money=None, location=1, hunger=100)
-
+            newGoal = Goal(owner=char, inventory=None, money=None, location=1,specify="sleep")
+        elif period[0] == 'worktime':
+            newGoal = Goal(owner=char, inventory=None, money=1000, location=1)
+        elif period[0] == 'evening':
+            newGoal = Goal(owner=char, inventory=None, money=None, location=1, mood=100)
+        elif period[0] == 'breakfast' or period[0] == 'lunch' or period[0] == 'dinner':
+            newGoal = Goal(owner=char, inventory=None, money=None, location=1, hunger=100)
+        elif period[0] == 'morning':
+            newGoal = Goal(owner=char, inventory=None, money=None, hunger=100,mood=1000)
+        else:
+            newGoal = Goal(owner=char, inventory=None, money=None, hunger=100,mood=1000)
+        char.goal = newGoal
+    return newGoal
 
 class Goal:
 
@@ -668,6 +674,7 @@ class Inventory():
 
 homefurniture_Flag = Flag(flag_components=[compGeneralVisGood, compGeneralInt, compSelf],
                           nouns=['sofa', 'chair', 'computer', 'tv', 'window', 'armchair', 'wardrobe', 'bed', 'table'])
+
 sittingfurniture_Flag = Flag(flag_components=[compGeneralVisGood, compGeneralInt, compSitting],
                              nouns=['sofa', 'chair', 'armchair', 'bed'])
 
@@ -731,7 +738,9 @@ sequenceobs4 = ['$verb', '%adjective', '$noun', 'because', '%pronoun', '%tobe', 
 observation_sequences = [sequenceobs1, sequenceobs2, sequenceobs3, sequenceobs4];
 
 sequencemove1 = ['$verb', '%location'];
-move_sequences = [sequencemove1];
+sequencemove2 = [ '%link', '$verb', '%location',' ','$noun','%tobe','%adjective'];
+sequencemove2 = [ '%link', '$verb', '%location','%timeword','$noun','%tobe','%adjective'];
+move_sequences = [sequencemove1,sequencemove2];
 times = ['present simple', 'present continious', 'present perfect', 'past simple', 'past perfect', 'past continious'];
 
 
@@ -817,7 +826,7 @@ class Story():
                     if flag.nouns != None:
                         message += ' ' + random.choice(flag.nouns)
                     else:
-                        message += 'I '
+                        message += ' I '
                 else:
                     ##raw_input(nouns)
                     message += ' ' + random.choice(nouns)

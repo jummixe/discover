@@ -49,12 +49,13 @@ activity_end = ['00', '01', '02', '03', '04', '05']
 
 @app.before_first_request
 def automatic():
+    global routinedisc
     worldProcessing.init_discover()
     print("Discover Chan setted-up!")
     worldProcessing.init_discover()
-    routine = worldProcessing.init_routine()
+    routinedisc = worldProcessing.init_routine()
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=routine.time_process(), trigger="interval",minutes=15)
+    scheduler.add_job(func=routinedisc.time_process(), trigger="interval",minutes=15)
     scheduler.start()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
@@ -77,7 +78,7 @@ x = 1
 
 @app.route('/Status', methods=['GET'])
 def report_status():
-    return routine.return_thoughts()
+    return routinedisc.return_thoughts()
 
 @app.route('/', methods=['POST'])
 def webhook():

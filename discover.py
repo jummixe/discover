@@ -84,8 +84,11 @@ class Character():
             event_new = factory.create_collect()
 
         if event_type == 'eat':
-            event_new = factory.create_move()
-        self.story.append(event_new)
+            event_new = factory.create_eat()
+        if event_new:
+            self.story.append(event_new)
+        else:
+            return False
 
     # creates story summarizing all the events happened
     def rethink_events(self):
@@ -110,10 +113,10 @@ class Character():
         return story
 
     def calculateStats(self):
-        self.hunger -= random.randint(0,25)
-        self.mood -= random.randint(0,25)
-        self.thirst -= random.randint(0,25)
-        self.energy -= random.randint(0,10)
+        self.hunger -= random.randint(0, 25)
+        self.mood -= random.randint(0, 25)
+        self.thirst -= random.randint(0, 25)
+        self.energy -= random.randint(0, 10)
 
     def create_path(self, destination):
         print('>>>>>>>>>>>>>>>>>')
@@ -151,16 +154,17 @@ class Character():
             print('Routine wants to start, but previous routine is not finished! What the heck')
             pass
 
+
 class EventFactory():
 
-    def __init__(self,discover):
+    def __init__(self, discover):
         self.flags = discover.location.flags
         self.verbs_f = []
         self.adjectives_f = []
         self.char = discover
 
     def create_collect(self):
-        shop = self.location.shop
+        shop = self.char.location.shop
         print('shop')
         item_flags = []
         ##raw_input(shop)
@@ -175,14 +179,14 @@ class EventFactory():
                         self.adjectives_f.append(adj)
             item_flags.append(productFlag)
             return Event(datetime.now(), event_type='collect', flags=item_flags, verbs=self.verbs_f,
-                              adjectives=self.adjectives_f, loc=self.location)
+                         adjectives=self.adjectives_f, loc=self.location)
 
     def create_eat(self):
-        shop = self.location.shop
+        shop = self.char.location.shop
         print('eat')
-        item = self.inventory.search_flags(compGoodTaste, Single=True, ran=True)
-        if item.len() == 0:
-            self.create_event("collect")
+        item = self.char.inventory.search_flags([compGoodTaste], single=True, ran=True)
+        if len(item) == 0:
+            self.char.create_event("collect")
             return
         if shop is not False:
             for flag in item.flag_components:
@@ -194,17 +198,17 @@ class EventFactory():
                         self.adjectives_f.append(adj)
                         self.char.hunger += random.randint(50, 100)
             return Event(datetime.now(), event_type='eat', flags=[tasty_food, nasty_food], verbs=self.verbs_f,
-                          adjectives=self.adjectives_f, loc=self.char.location)
+                         adjectives=self.adjectives_f, loc=self.char.location)
 
     def create_move(self):
-        for comp in moveflag.flag_components:
-                    for verb in range(0, len(comp.verbs)):
-                        self.verbs_f.append(verb)
-                        ##raw_input(verbs_f)
-                    for adj in range(0, len(comp.adjectives)):
-                        self.adjectives_f.append(adj)
-        return Event(datetime.now(), event_type='moving', flags=[moveflag], verbs=self.verbs_f,
-                                  adjectives=self.adjectives_f, loc=self.char.location)
+        for comp in move_flag.flag_components:
+            for verb in range(0, len(comp.verbs)):
+                self.verbs_f.append(verb)
+                ##raw_input(verbs_f)
+            for adj in range(0, len(comp.adjectives)):
+                self.adjectives_f.append(adj)
+        return Event(datetime.now(), event_type='moving', flags=[move_flag], verbs=self.verbs_f,
+                     adjectives=self.adjectives_f, loc=self.char.location)
 
     def create_enjoy(self):
         for flag in self.flags:
@@ -216,7 +220,8 @@ class EventFactory():
                     self.adjectives_f.append(adj)
                     self.char.mood += random.randint(0, 100)
         return Event(datetime.now(), event_type='observation', flags=self.flags, verbs=self.verbs_f,
-                          adjectives=self.adjectives_f, loc=self.char.location)
+                     adjectives=self.adjectives_f, loc=self.char.location)
+
 
 # Here Char can buy things.
 class Shop():
@@ -225,7 +230,7 @@ class Shop():
         self.locs = locs
         self.items = items
 
-    def have_item(self,item):
+    def have_item(self, item):
         return self.items.__contains__(item)
 
     def return_buyable(self, who):
@@ -317,7 +322,7 @@ def goal_constructor(char):
     # travel
     if randomint < 25:
         for loc in locations:
-            if sceneryFlag in loc.flags:
+            if scenery_flag in loc.flags:
                 locgo = loc
         print('move' + str(locgo.loc_id))
         NewGoal = Goal(owner=char, inventory=None, money=None, location=locgo.loc_id)
@@ -345,7 +350,7 @@ def day_goal(char):
 
     for period in time_now:
         if period[0] == 'night':
-            newGoal = Goal(owner=char, inventory=None, money=None, location=1,specify="sleep")
+            newGoal = Goal(owner=char, inventory=None, money=None, location=1, specify="sleep")
         elif period[0] == 'worktime':
             newGoal = Goal(owner=char, inventory=None, money=1000, location=1)
         elif period[0] == 'evening':
@@ -353,11 +358,12 @@ def day_goal(char):
         elif period[0] == 'breakfast' or period[0] == 'lunch' or period[0] == 'dinner':
             newGoal = Goal(owner=char, inventory=None, money=None, location=1, hunger=100)
         elif period[0] == 'morning':
-            newGoal = Goal(owner=char, inventory=None, money=None, hunger=100,mood=1000)
+            newGoal = Goal(owner=char, inventory=None, money=None, hunger=100, mood=100)
         else:
-            newGoal = Goal(owner=char, inventory=None, money=None, hunger=100,mood=1000)
+            newGoal = Goal(owner=char, inventory=None, money=None, hunger=100, mood=100)
         char.goal = newGoal
     return newGoal
+
 
 class Goal:
 
@@ -425,6 +431,7 @@ class Event():
         self.flags = flags
         self.event_type = event_type
         self.time = discover_time(datetime.now().hour)
+
 
 class Region():
 
@@ -599,6 +606,25 @@ compGoodTaste = FlagComponent(
     ]
 )
 
+compActionHardDo = FlagComponent(
+    adjectives=['hard', 'sweaty', 'time-consuming', 'fruitful', 'tough', 'grinding'],
+    verbs=[
+        ['work', 'labor', 'do'],
+        ['worked', 'labored', 'did'],
+        ['working', 'laboring', 'doing']
+    ]
+
+)
+
+compActionRegularDo = FlagComponent(
+    adjectives=['easy', 'smooth', 'lazy', 'edge-cutting'],
+    verbs=[
+        ['work', 'labor', 'do'],
+        ['worked', 'labored', 'did'],
+        ['working', 'laboring', 'doing']
+    ]
+)
+
 compOkTaste = FlagComponent(
     adjectives=['ok', 'edible', 'consumable', ],
     verbs=[
@@ -702,14 +728,14 @@ class Inventory():
         self.items.append(item)
         return len(self.items)
 
-    def remove(self,item):
+    def remove(self, item):
         self.item.remove(item)
         return len(self.items)
 
     def get_items(self):
         return self.items
 
-    def search_flags(self, flags=[],single = True, ran = True):
+    def search_flags(self, flags=[], single=True, ran=True):
         list_return = []
         for item in self.items:
             for flag in flags:
@@ -718,12 +744,15 @@ class Inventory():
                         list_return.append(item)
                 elif item in list_return:
                     list_return.remove(item)
-        if not single:
-            return list_return
-        elif ran==False:
-            return list_return[0]
+        if len(list_return)>0:
+            if not single:
+                return list_return
+            elif ran == False:
+                return list_return[0]
+            else:
+                return random.choice(list_return)
         else:
-            return random.choice(list_return)
+            return []
 
 
 homefurniture_Flag = Flag(flag_components=[compGeneralVisGood, compGeneralInt, compSelf],
@@ -745,13 +774,17 @@ tasty_food = Flag(flag_components=[compGeneralVisGood, compGoodTaste], nouns=['f
 nasty_food = Flag(flag_components=[compBadTaste, compOkTaste, compGeneralVisBad],
                   nouns=['food', 'edible', 'ration', 'dish'], plural=False)
 
-yardnatureflag = Flag(flag_components=[compGeneralVisGood, compGeneralInt],
-                      nouns=['trees', 'cats', 'flowers', 'birds', 'leaves', 'rats', 'bugs', 'dogs', 'bushes',
-                             'grassies','stones','trunks','leaves',''], plural=True)
-sceneryFlag = Flag(flag_components=[compGeneralVisGood],
-                   nouns=['mountain ranges', 'mountains', 'crests', 'woods', 'valleys', 'creeks', 'views', 'sceneries',
-                          'pictures', 'landscapes', 'mountain villages', 'summits', 'tops', 'cliffs'], plural=True)
-moveflag = Flag(flag_components=[compMoving], nouns=None, plural=False)
+yardnature_flag = Flag(flag_components=[compGeneralVisGood, compGeneralInt],
+                       nouns=['trees', 'cats', 'flowers', 'birds', 'leaves', 'rats', 'bugs', 'dogs', 'bushes',
+                              'grassies', 'stones', 'trunks', 'leaves', ''], plural=True)
+scenery_flag = Flag(flag_components=[compGeneralVisGood],
+                    nouns=['mountain ranges', 'mountains', 'crests', 'woods', 'valleys', 'creeks', 'views', 'sceneries',
+                           'pictures', 'landscapes', 'mountain villages', 'summits', 'tops', 'cliffs'], plural=True)
+move_flag = Flag(flag_components=[compMoving], nouns=None, plural=False)
+
+work_Flag = Flag(flag_components=[compActionHardDo], nouns=['work', 'activity', 'job', 'routine', 'occupation'])
+
+hobby_Flag = Flag(flag_components=[compActionRegularDo], nouns=['hobby', 'leisure-activity', 'occupation'])
 
 DiscoverJacket = Item(name='soft-shell jacket', price=0, flags=[owneditems_Flag])
 DiscoverPants = Item(name='sport legwear', price=0, flags=[owneditems_Flag])
@@ -759,8 +792,7 @@ DiscoverShoes = Item(name='chinese sneakers', price=0, flags=[pluralowneditems_F
 
 StringsPanties = Item(name='panties', price=100, flags=[gooditems_Flag])
 
-Bread = Item(name='bread',price=50,flags=[tasty_food])
-
+Bread = Item(name='bread', price=50, flags=[tasty_food])
 
 Disinventory = Inventory()
 Disinventory.add(DiscoverJacket)
@@ -774,9 +806,9 @@ HomeReg = Region(0, names={'what': 'Uzhhorod', 'where': 'in Uzhhorod'}, hubs=[],
 HomeLoc = Location(0, names={'what': 'my flat', 'where': 'in my flat'}, connections=[1],
                    flags=[homefurniture_Flag, sittingfurniture_Flag])
 NeighbourHood = Location(1, names={'what': 'my yard', 'where': 'in my yard'}, connections=[0, 2],
-                         flags=[yardnatureflag]);
+                         flags=[yardnature_flag]);
 PlishkaLoc = Location(2, names={'what': 'Plishka', 'where': 'at the Plishka'}, connections=[1],
-                      flags=[yardnatureflag, sceneryFlag]);
+                      flags=[yardnature_flag, scenery_flag]);
 
 Regular_Shop = Shop([1], [3, 4]);
 
@@ -801,9 +833,9 @@ sequenceobs4 = ['$verb', '%adjective', '$noun', 'because', '%pronoun', '%tobe', 
 observation_sequences = [sequenceobs1, sequenceobs2, sequenceobs3, sequenceobs4];
 
 sequencemove1 = ['$verb', '%location'];
-sequencemove2 = [ '%link', '$verb', '%location',' ','$noun','%tobe','%adjective'];
-sequencemove2 = [ '%link', '$verb', '%location','%timeword','$noun','%tobe','%adjective'];
-move_sequences = [sequencemove1,sequencemove2];
+sequencemove2 = ['%link', '$verb', '%location', ' ', '$noun', '%tobe', '%adjective'];
+sequencemove2 = ['%link', '$verb', '%location', '%timeword', '$noun', '%tobe', '%adjective'];
+move_sequences = [sequencemove1, sequencemove2];
 times = ['present simple', 'present continious', 'present perfect', 'past simple', 'past perfect', 'past continious'];
 
 

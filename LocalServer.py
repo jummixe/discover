@@ -51,11 +51,14 @@ class LocalResponser:
         print("Discover inventory"+str(self.discover.inventory))
         print("Discover location"+self.discover.location.names["where"])
         print("############# STORY ######################")
-        for event in self.discover.story:
-            print(str(self.discover.story.index(event))+" event is of following type"+event.event_type)
-            print(event.loc.names["what"]+" is where this event happened")
-            print(str(event.adjectives[0])+" is what she thinks about it")
-
+        if len(self.discover.story) > 0:
+            print(self.discover.story)
+            for event in self.discover.story:
+                print(str(self.discover.story.index(event))+" event is of following type"+event.event_type)
+                print(event.loc.names["what"]+" is where this event happened")
+                print(str(event.adjectives[0])+" is what she thinks about it")
+        else:
+            print("Discover have no story to show you.")
 
 def main_loop():
 

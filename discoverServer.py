@@ -75,6 +75,9 @@ def verify():
 
 x = 1
 
+@app.route('/Status', methods=['GET'])
+def report_status():
+    return routine.return_thoughts()
 
 @app.route('/', methods=['POST'])
 def webhook():

@@ -67,6 +67,7 @@ class Routine():
             self.create_goals()
             self.process_goals()
             self.state = discoverWorld.Hour
+            self.char.calculateStats()
 
     def create_goals(selfs):
         if discoverChar.goal.achieved:

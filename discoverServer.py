@@ -78,7 +78,7 @@ x = 1
 
 @app.route('/Status', methods=['GET'])
 def report_status():
-    return routinedisc.resolve_story(), 200
+    return "Everything is ok", 200
 
 @app.route('/', methods=['POST'])
 def webhook():

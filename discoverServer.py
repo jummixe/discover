@@ -71,7 +71,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
     if routinedisc and routinedisc.char:
-        return render_template("home.html", location=routinedisc.char.location.names[0],hunger=str(routinedisc.char.hunger), mood = str(routinedisc.char.mood))
+        return render_template("home.html", location=routinedisc.char.location.names["where"],hunger=str(routinedisc.char.hunger), mood = str(routinedisc.char.mood))
     else:
         return "404",200
 

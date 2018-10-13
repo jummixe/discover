@@ -78,7 +78,7 @@ x = 1
 
 @app.route('/Status', methods=['GET'])
 def report_status():
-    return "Everything is ok", 200
+    return worldProcessing.return_thoughts(), 200
 
 @app.route('/', methods=['POST'])
 def webhook():

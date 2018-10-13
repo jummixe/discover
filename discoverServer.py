@@ -19,7 +19,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+MYDIR = os.path.dirname(__file__)
 
 def get_self():
     return app
@@ -59,7 +59,7 @@ def automatic():
     scheduler.start()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
-    return render_template("/templates/home.html", location="Хунта")
+    return render_template(os.path.join(MYDIR + "/Templates/"+"home.html"), location="Хунта")
 
 
 @app.route('/', methods=['GET'])

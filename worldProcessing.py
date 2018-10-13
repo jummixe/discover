@@ -24,7 +24,8 @@ def init_discover():
 
 
 def init_routine():
-    basicRoutine = Routine(speed=1, active=True)
+    global discoverChar
+    basicRoutine = Routine(speed=1, char = discoverChar, active=True)
     basicRoutine.start_routine()
     basicRoutine.time_process()
     basicRoutine.process_goals()
@@ -53,10 +54,11 @@ def process_string(id,msg):
 
 class Routine():
 
-    def __init__(self, speed, active=False):
+    def __init__(self, speed, char, active=False):
         self.speed = speed
         self.active = active
         self.state = discoverWorld.Hour
+        self.char =  char
 
     def time_process(self):
         discoverWorld.get_time()

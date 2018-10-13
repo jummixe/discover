@@ -70,8 +70,8 @@ def verify():
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
-
-    return render_template("home.html", location="Uzhorod, uzhorod")
+    
+    return render_template("home.html", location=routinedisc.char.location.names[0],hunger=routinedisc.char.hunger, mood =routinedisc.char.mood)
 
 
 x = 1

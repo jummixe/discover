@@ -59,7 +59,7 @@ def automatic():
     scheduler.start()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
-    return render_template("home.html", location="Хунта")
+    return "Huh", 200
 
 
 @app.route('/', methods=['GET'])
@@ -71,7 +71,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "Hello world", 200
+    return render_template("home.html", location="Хунта")
 
 
 x = 1

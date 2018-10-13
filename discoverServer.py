@@ -71,7 +71,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return render_template("home.html", location="Хунта")
+    return render_template("home.html", location="Uzhorod, uzhorod")
 
 
 x = 1

@@ -8,7 +8,7 @@ import time
 import requests
 import random
 import threading
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 import tweepy
 import discover
@@ -59,7 +59,7 @@ def automatic():
     scheduler.start()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
-    return 'ok', 200
+    return render_template("/templates/home.html", location=worldProcessing.discoverWorld.discover.Location.names[1])
 
 
 @app.route('/', methods=['GET'])

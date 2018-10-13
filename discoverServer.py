@@ -55,7 +55,7 @@ def automatic():
     worldProcessing.init_discover()
     routinedisc = worldProcessing.init_routine()
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=routinedisc.time_process(), trigger="interval",minutes=15)
+    scheduler.add_job(func=routinedisc.time_process, trigger="interval",minutes=15)
     scheduler.start()
     send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)

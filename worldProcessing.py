@@ -83,7 +83,7 @@ class Routine():
         discoverChar.routine_start()
 
     def resolve_story (self):
-        discoverChar.rethink_events()
+        return discoverChar.rethink_events()
 
     def remind_inventory(inventory):
         pass

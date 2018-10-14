@@ -93,7 +93,7 @@ class Character():
     # creates story summarizing all the events happened
     def rethink_events(self):
 
-        story = ''
+        story = ""
         story_new = Story(self, self.story, "present simple")
         story_new.time = story_new.decide_time()
         ###raw_input(self.story)
@@ -103,7 +103,7 @@ class Character():
 
         for event in story_new.events:
             if index > 0:
-                story += '. ' + story_new.construct(event)
+                story += ". "+ story_new.construct(event)
             else:
                 story += story_new.construct(event)
             index += 1

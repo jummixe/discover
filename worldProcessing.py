@@ -63,11 +63,10 @@ class Routine():
     def time_process(self):
         discoverWorld.get_time()
         discoverWorld.discover_time(discoverWorld.Hour)
-        if discoverWorld.Hour > self.state:
-            self.create_goals()
-            self.process_goals()
-            self.state = discoverWorld.Hour
-            self.char.calculateStats()
+        self.create_goals()
+        self.process_goals()
+        self.state = discoverWorld.Hour
+        self.char.calculateStats()
 
     def create_goals(selfs):
         if discoverChar.goal.achieved:

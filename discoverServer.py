@@ -57,7 +57,6 @@ def automatic():
     scheduler = BackgroundScheduler()
     scheduler.add_job(func=discover_iterate, trigger="interval",minutes=15)
     scheduler.start()
-    send_message(u'1579846222104780', "Automatic")
    # send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
     return "Huh", 200
@@ -66,8 +65,7 @@ def automatic():
 def discover_iterate():
     routinedisc.time_process()
     story = routinedisc.resolve_story()
-    send_message(u'1579846222104780', "Automatic")
-   # send_message(u'1579846222104780', "pew-pew")
+    send_message(u'1579846222104780', str(story))
 
 @app.route('/', methods=['GET'])
 def verify():

@@ -34,9 +34,9 @@ def init_routine():
 
 def process(messagejson):
     sender = messagejson["sender"]["id"]
-    if messagejson["message"]["text"]:
+    if messagejson["message"].get("text"):
         message = messagejson["message"]["text"]
-    elif messagejson["message"]["attachments"]:
+    elif messagejson["message"].get("attachments"):
         message = "pic"
     else:
         message = "else"

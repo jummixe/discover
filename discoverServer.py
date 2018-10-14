@@ -104,7 +104,7 @@ def webhook():
                     if messaging_event.get("message").get("text"):
                         message_text = messaging_event["message"]["text"]  # the message's text
                     worldProcessing.process(messaging_event)
-                    
+
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 

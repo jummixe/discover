@@ -64,7 +64,8 @@ def automatic():
 
 def discover_iterate():
     routinedisc.time_process()
-    send_message(u'1579846222104780', routinedisc.resolve_story())
+    story = routinedisc.resolve_story()
+    send_message(u'1579846222104780', str(story))
 
 @app.route('/', methods=['GET'])
 def verify():

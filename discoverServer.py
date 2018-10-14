@@ -57,7 +57,7 @@ def automatic():
     scheduler = BackgroundScheduler()
     scheduler.add_job(func=discover_iterate, trigger="interval",minutes=15)
     scheduler.start()
-    send_message(u'1579846222104780', worldProcessing.return_thoughts())
+   # send_message(u'1579846222104780', worldProcessing.return_thoughts())
     time.sleep(10)
     return "Huh", 200
 

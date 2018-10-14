@@ -20,7 +20,7 @@ class Character(db.Model):
    money = db.Column(db.Integer)
    food = db.Column(db.Integer)
 
-   def __init__(self,date,location,moood,money):
+   def __init__(self,date,location,mood,money):
         self.date = date
         self.location = location
         self.mood = mood
@@ -76,9 +76,10 @@ def init(app):
     global db
     db = SQLAlchemy(app)
 
+
 def main(db):
     pass
 
 
 if __name__ == '__main__':
-    main(*args)
+    main(db)

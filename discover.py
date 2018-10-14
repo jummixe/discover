@@ -110,6 +110,8 @@ class Character():
         ##raw_input(story)
         story = normalize(story)
         print(story)
+        if len(story)<3:
+            return "nothing new"
         return story
 
     def calculateStats(self):

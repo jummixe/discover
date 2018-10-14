@@ -34,8 +34,12 @@ def init_routine():
 
 def process(messagejson):
     sender = messagejson["sender"]["id"]
-    message = messagejson["message"]["text"]
-
+    if messagejson["message"]["text"]:
+        message = messagejson["message"]["text"]
+    elif messagejson["message"]["attachments"]:
+        message = "pic"
+    else:
+        message = "else"
     if sender == "1579846222104780":
         print("Max messaging" + message)
 

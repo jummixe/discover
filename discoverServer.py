@@ -66,6 +66,7 @@ def automatic():
 def discover_iterate():
     routinedisc.time_process()
     story = routinedisc.resolve_story()
+    send_message(u'1579846222104780', "Automatic")
    # send_message(u'1579846222104780', "pew-pew")
 
 @app.route('/', methods=['GET'])
